@@ -10,7 +10,6 @@ export default defineConfig({
       input: {
         // 메인 페이지
         index: 'index.html',
-        
       },
     },
   },
