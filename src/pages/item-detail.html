@@ -4,69 +4,79 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>item-detail</title>
+    <link href="/src/style.css" rel="stylesheet" />
   </head>
   <body>
-    <main class="DetailMain">
-      <h1>테이텀 2 PF</h1>
-      <p>농구화</p>
-      <div class="DetailPriceInfo">
-        <p>149,000원</p>
-        <s>249,000원</s>
-        <span>10% 할인</span>
+    <main class="pt-20 flow-root DetailMain">
+      <h1 class="w-[6.4011rem] h-8.75 ml-6 font-medium text-xl font-Noto">테이텀 2 PF</h1>
+      <p class="w-[2.7809rem] h-7 ml-6 font-medium font-Noto">농구화</p>
+      <div class="pt-3 ml-6 DetailPriceInfo flex">
+        <span class="inline-block h-7 mr-2 font-medium font-Noto">149,000원</span>
+        <s class="inline-block h-7 mr-2 font-medium font-Noto text-nike-gray-medium">249,000원</s>
+        <span class="inline-block h-7 font-medium font-Noto text-nike-green">10% 할인</span>
       </div>
 
-      <figure class="DetailItemImage">
-        <img src="/src/images/List.png" alt="테이텀 2PF 제품 라이트 지트론 색상 이미지" />
+      <figure class="pt-6 DetailItemImage">
+        <img class="w-full" src="/src/images/List.png" alt="테이텀 2PF 제품 라이트 지트론 색상 이미지" />
       </figure>
 
-      <div class="DetailItemColor">
-        <img src="/src/images/Link → JORDAN+TATUM+2+PF.png.png" alt="테이텀 2PF 라이트 지트론 색상 이미지" />
-        <img src="/src/images/Link → JORDAN+TATUM+2+PF.png (1).png" alt="테이텀 2PF 오로라 그린 색상 이미지" />
-        <img src="/src/images/List.png" alt="테이텀 2PF 아토믹 핑크 색상 이미지" />
+      <div class="w-90 pt-0.75 DetailItemColor flex gap-2.5">
+        <img class="h-[125px]" src="/src/images/Link → JORDAN+TATUM+2+PF.png.png" alt="테이텀 2PF 라이트 지트론 색상 이미지" />
+        <img class="h-[125px]" src="/src/images/Link → JORDAN+TATUM+2+PF.png (1).png" alt="테이텀 2PF 오로라 그린 색상 이미지" />
+        <img class="h-[125px]" src="/src/images/List.png" alt="테이텀 2PF 아토믹 핑크 색상 이미지" />
       </div>
 
-      <fieldset class="DetailSizeSelect">
-        <legend>사이즈 선택</legend>
-        <a href="" aria-label="사이즈 가이드, 클릭시 사이즈 가이드 링크로 이동">사이즈 가이드</a>
-        <div class="SizeButtons" role="group" aria-label="사이즈 옵션">
-          <button type="button">250</button>
-          <button type="button">255</button>
-          <button type="button">260</button>
-          <button type="button">265</button>
-          <button type="button">270</button>
-          <button type="button">275</button>
-          <button type="button">280</button>
-          <button type="button">285</button>
-          <button type="button">290</button>
-          <button type="button">300</button>
-          <button type="button">305</button>
-          <button type="button">310</button>
+      <fieldset class="pt-[22px] w-full DetailSizeSelect">
+        <div class="pl-6 pr-6 pt-5 DetailSizeSelectGuide flex justify-between">
+          <legend class="font-Noto">사이즈 선택</legend>
+          <a class="w-[93.143px] h-7 text-nike-gray-dark font-Noto" href="" aria-label="사이즈 가이드, 클릭시 사이즈 가이드 링크로 이동">사이즈 가이드</a>
+        </div>
+        <div class="pt-2 pl-6 pr-6 SizeButtons font-Noto flex flex-wrap gap-[7px]" role="group" aria-label="사이즈 옵션">
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button ">250</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">255</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">260</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">265</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">270</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">275</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">280</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">285</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">290</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">295</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">300</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">305</button>
+          <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button">310</button>
         </div>
       </fieldset>
 
-      <div class="DetailWantToBuy">
-        <button type="button" aria-label="장바구니, 클릭 시 해당 상품을 장바구니에 담음">장바구니</button>
-        <button type="button" aria-label="위시리스트, 클릭 시 해당 상품을 위시리스트에 담음">
-          위시리스트
-          <img src="/src/images/Vector.svg" alt="" />
-        </button>
+      <div class="pt-8 pl-6 pr-6 font-Noto DetailWantToBuy">
+        <button class="w-full px-4 py-2 border border-black rounded-4xl hover:bg-gray-300 font-Noto bg-black text-amber-50" type="button" aria-label="장바구니, 클릭 시 해당 상품을 장바구니에 담음">장바구니</button>
+        <div class="pt-3">
+          <button class="w-full px-4 py-2 border border-black rounded-4xl hover:bg-gray-300 font-Noto" type="button" aria-label="위시리스트, 클릭 시 해당 상품을 위시리스트에 담음">
+            위시리스트
+            <img class="inline-block" src="" alt="" />
+          </button>
+        </div>
       </div>
 
-      <p>
+      <p class="pt-8 pl-6 pr-6 font-Noto leading-7">
         경기 종료 휘슬이 울릴 때까지는 끝난 것이 아닙니다. 테이텀 2와 함께 여유로운 에너지로 경기를 즐겨보세요. 무거운 고무 소재의 사용을 제한하여 더욱 가벼운 착화감을 선사합니다. 전체적으로 적용된 나이키 에어 스트로벨 유닛은 빠르게 방향을 바꿀 수 있도록 도와주며, 견고한 프레임과 발에 밀착되는
         지지력 있는 폼이 어우러져 고정력 좋은 착화감을 선사합니다.
       </p>
 
-      <div class="DetailCurrentInfo">
-        <p>현재 컬러: 라이트 지트론/오로라 그린/ 아토믹 핑크/세일</p>
-        <p>스타일 번호: FJ6458-700</p>
+      <div class="pt-7 pl-6 pr-6 font-Noto leading-7 DetailCurrentInfo flex">
+        <img class="w-1 h-1 shrink-0 items-center justify-center" src="/src/images/Ellipse 2.png" alt="" />
+        <p class="grow items-center justify-center">현재 컬러: 라이트 지트론/오로라 그린/ 아토믹 핑크/세일</p>
+        <div class="DetailStyleNumber flex">
+          <img class="w-1 h-1 shrik-0 items-center justify-center" src="/src/images/Ellipse 2.png" alt="" />
+          <p class="grow items-center justify-center">스타일 번호: FJ6458-700</p>
+        </div>
       </div>
     </main>
 
-    <div class="DetailInfo">
-      <h2>상품 상세 정보 보기</h2>
+    <div class="pt-[30px] pl-6 pr-6 font-Noto DetailInfo">
+      <h2 class="underline">상품 상세 정보 보기</h2>
       <details>
-        <summary aria-label="무료 배송 및 반품, 클릭 시 배송 및 반품 정보에 대해 확인 가능">무료 배송 및 반품</summary>
+        <summary class="pt-[30px] pb-[30px] font-Noto" aria-label="무료 배송 및 반품, 클릭 시 배송 및 반품 정보에 대해 확인 가능">무료 배송 및 반품</summary>
         <p>
           일반 배송  • 배송지역: 전국 (일부 지역 제외) • 배송비: 무료배송 • 제품 수령일로부터 14일 이내 제품에 대해서만 무료 반품 서비스가 가능합니다. 오늘도착 서비스 • 이용시간: 오전 10시 30분까지 결제 시, 당일 도착 (일요일, 공휴일 제외) • 서비스지역: 서울∙과천∙의왕∙군포∙수원∙성남∙안양시 전체,
           용인시 수지구∙기흥구, 부천시 중동∙상동∙심곡동 • 서비스비용: 5,000원 A/S 안내  • 나이키 온라인에서 구매하신 제품에 대한 A/S 는 나이키코리아 고객센터(080-022-0182)에서 유선으로만 접수 가능합니다.
@@ -74,7 +84,7 @@
       </details>
 
       <details>
-        <summary aria-label="리뷰, 클릭 시 리뷰 조회 가능">
+        <summary class="pt-[30px] pb-[30px] font-Noto" aria-label="리뷰, 클릭 시 리뷰 조회 가능">
           리뷰(2)
           <img src="/src/images/Group 16.svg" alt="평점 별 5개" />
         </summary>
@@ -98,7 +108,7 @@
       </details>
 
       <details>
-        <summary aria-label="추가 정보, 클릭 시 상품정보제공고시 열람 가능">추가 정보</summary>
+        <summary class="pt-[29.5px] pb-[30.5px] font-Noto" aria-label="추가 정보, 클릭 시 상품정보제공고시 열람 가능">추가 정보</summary>
         <span>상품정보제공고시</span>
         <p>
           제조연월: 수입제품으로 각 제품별 입고 시기에 따라 상이하여 정확한 제조연월 제공이 어렵습니다. 제조연월을 확인하시려면 고객센터에 문의하시기 바라며, 정확한 제조연월은 배송받으신 제품의 라벨을 참고하시기 바랍니다. A/S 책임자와 전화번호: (유)나이키코리아 온라인 스토어 고객센터 / 080-022-0182
@@ -116,7 +126,7 @@
 
       <article>
         <figure>
-          <img src="/src/images/%EC%A4%8C-%EB%B3%B4%EB%A9%94%EB%A1%9C-5-%EB%82%A8%EC%84%B1-%EC%8B%A0%EB%B0%9C-jMhs3dML.png.png" alt="나이키 줌 보메로 5 상품 이미지" />
+          <img src="/src/images/%EC%A4%8C-%EB%B3%B4%EB%A9%94%EB%A1%9C-5-%EB%82%A8%EC%84%B1-%EC%8B%A0%EB%B0%9C-jMhs3dML.png (1).png" alt="나이키 줌 보메로 5 상품 이미지" />
         </figure>
         <h3>나이키 줌 보메로5</h3>
         <p>남성 신발</p>
