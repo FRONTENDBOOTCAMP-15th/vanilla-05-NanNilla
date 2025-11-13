@@ -5,19 +5,19 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="../style.css" rel="stylesheet" />
-    <link href="./item-list.css" rel="stylesheet" />
+    <script type="module" src="../components/header.ts"></script>
     <title>상품 리스트</title>
   </head>
   <body>
-    <main class="flex flex-col nikeDesktop:flex-row">
+    <main class="flex flex-col min-w-[360px] nikeDesktop:flex-row nikeDesktop:h-screen">
       <section>
         <!-- 제목 -->
         <h1 class="text-[1.25rem] px-5 pt-[13px] pb-[13px] mb-[15px] nikeDesktop:hidden">신제품</h1>
-        <h1 class="text-[1.25rem] px-12 pt-[13px] pb-[13px] mb-[15px] hidden nikeDesktop:block">신제품 (749)</h1>
+        <h1 class="text-[1.25rem] px-12 pt-[13px] pb-[30px] hidden nikeDesktop:block">신제품 (749)</h1>
 
         <!-- 카테고리 목록 -->
         <div
-          class="category-wrapper flex border-b border-nike-gray-light pt-2 px-1 w-full h-[50px] overflow-x-scroll whitespace-nowrap no-scrollbar nikeDesktop:flex-col nikeDesktop:h-screen nikeDesktop:w-[260px] nikeDesktop:items-start nikeDesktop:pt-0 nikeDesktop:px-0 nikeDesktop:mr-10 nikeDesktop:overflow-y-scroll nikeDesktop:border-b-0 nikeDesktop:overflow-x-hidden"
+          class="category-wrapper flex border-b border-nike-gray-light pt-2 px-1 w-full h-[50px] overflow-x-scroll whitespace-nowrap no-scrollbar nikeDesktop:flex-col nikeDesktop:h-screen nikeDesktop:w-[260px] nikeDesktop:items-start nikeDesktop:pt-0 nikeDesktop:px-0 nikeDesktop:mr-10 nikeDesktop:overflow-y-scroll nikeDesktop:border-b-0 nikeDesktop:overflow-x-hidden nikeDesktop:pb-26"
         >
           <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">신발</button>
           <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">탑 & 티셔츠</button>
@@ -35,7 +35,7 @@
           <!-- 추가 목록 -->
           <div class="additional-category w-full hidden nikeDesktop:block">
             <div class="flex flex-col ml-12 mt-1 gap-1">
-              <p class="gender my-3">성별</p>
+              <p class="gender my-3 flex">성별<img src="/assets/icon24px/icon-up.svg" alt="" class="ml-auto mr-2.5" /></p>
               <div>
                 <input type="checkbox" id="male" />
                 <label for="male">남성</label>
@@ -51,7 +51,7 @@
             </div>
             <hr class="border-nike-gray-light ml-12 mt-6" />
             <div class="flex flex-col ml-12 mt-1 gap-1">
-              <p class="is-kid my-3">키즈</p>
+              <p class="is-kid my-3 flex">키즈<img src="/assets/icon24px/icon-up.svg" alt="" class="ml-auto mr-2.5" /></p>
               <div>
                 <input type="checkbox" id="boy" />
                 <label for="boy">남아</label>
@@ -63,7 +63,7 @@
             </div>
             <hr class="border-nike-gray-light ml-12 mt-6" />
             <div class="flex flex-col ml-12 mt-1 gap-1">
-              <p class="kid-age my-3">키즈 연령</p>
+              <p class="kid-age my-3 flex">키즈 연령<img src="/assets/icon24px/icon-up.svg" alt="" class="ml-auto mr-2.5" /></p>
               <div>
                 <input type="checkbox" id="baby" />
                 <label for="baby">베이비(0-3세)</label>
@@ -79,7 +79,7 @@
             </div>
             <hr class="border-nike-gray-light ml-12 mt-6" />
             <div class="flex flex-col ml-12 mt-1 gap-1">
-              <p class="price-range my-3">가격대</p>
+              <p class="price-range my-3 flex">가격대<img src="/assets/icon24px/icon-up.svg" alt="" class="ml-auto mr-2.5" /></p>
               <div>
                 <input type="checkbox" id="price-0-50" />
                 <label for="price-0-50">0 - 50,000원</label>
@@ -106,13 +106,13 @@
 
       <aside>
         <!-- 필터 바 -->
-        <div class="filter-bar pt-[16.5px] pb-[15.5px] content-center inline-flex w-full h-[60px]">
+        <div class="filter-bar pt-[16.5px] pb-[15px] mb-[15px] content-center inline-flex w-full h-[60px]">
           <p class="total-item ml-5 inline-flex text-nike-gray-dark nikeDesktop:hidden">741개의 결과</p>
           <div class="desktop-button hidden nikeDesktop:block nikeDesktop:ml-auto">
-            <button class="item-filter-hidden px-5 py-[3px] inline-flex items-center ml-auto">필터숨기기<img src="../asset/filter.svg" alt="필터이미지" /></button>
-            <button class="item-filter-sort mr-5 pr-3 py-[3px] inline-flex items-center ml-auto">정렬기준:<img src="../asset/filter.svg" alt="필터이미지" /></button>
+            <button class="item-filter-hidden px-5 py-[3px] inline-flex items-center ml-auto">필터숨기기<img src="/assets/icon24px/icon-filter.svg" alt="필터이미지" /></button>
+            <button class="item-filter-sort mr-5 pr-3 py-[3px] inline-flex items-center ml-auto">정렬기준:<img src="/assets/icon24px/icon-down.svg" alt="필터이미지" /></button>
           </div>
-          <button class="item-filter mr-5 px-5 py-[3px] inline-flex items-center gap-[3px] border-nike-gray-light border-solid border rounded-[50px] ml-auto nikeDesktop:hidden">필터<img src="../asset/filter.svg" alt="필터이미지" /></button>
+          <button class="item-filter mr-5 px-5 py-[3px] inline-flex items-center gap-[3px] border-nike-gray-light border-solid border rounded-[50px] ml-auto nikeDesktop:hidden">필터<img src="/assets/icon24px/icon-filter.svg" alt="필터이미지" /></button>
         </div>
 
         <!-- 상품 목록 -->
