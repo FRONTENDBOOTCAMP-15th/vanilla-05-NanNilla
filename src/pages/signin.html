@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko-KR">
   <head>
     <meta charset="UTF-8" />
@@ -19,12 +19,11 @@
               <img src="/assets/logo.svg" alt="나이키 홈" />
             </a>
           </div>
-          <h1 class="text-2xl py-7">가입 또는 로그인을 위해<br/>이메일을 입력하세요.</h1>
-          <input type="email" placeholder="이메일" class="border border-nike-gray-dark rounded-lg px-3 py-4"/>
+          <h1 class="text-2xl py-7">가입 또는 로그인을 위해<br />이메일을 입력하세요.</h1>
+          <input type="email" placeholder="이메일" class="border border-nike-gray-dark rounded-lg px-3 py-4" />
           <p class="text-nike-gray-dark py-10">
             계속 진행하면 나이키의
-            <a href="#" class="underline">개인정보 처리방침</a> 및
-            <a href="#" class="underline">이용약관</a>에 동의하게 됩니다.
+            <a href="#" class="underline">개인정보 처리방침</a> 및 <a href="#" class="underline">이용약관</a>에 동의하게 됩니다.
           </p>
           <button id="continue-btn" class="w-22.5 h-13 rounded-full bg-nike-black text-nike-white text-base">계속</button>
         </div>
@@ -40,11 +39,7 @@
           <p class="my-3">test@naver.com</p>
 
           <div class="relative w-full h-full mt-3.5 mb-5.5">
-            <input
-              type="password"
-              placeholder="비밀번호"
-              class="border border-nike-gray-dark rounded-lg px-3 py-4 w-full pr-10"
-            />
+            <input type="password" placeholder="비밀번호" class="border border-nike-gray-dark rounded-lg px-3 py-4 w-full pr-10" />
           </div>
 
           <a href="#" class="underline text-nike-gray-dark mb-21">비밀번호 찾기</a>
@@ -59,16 +54,16 @@
 
     <!-- 임시 JS -->
     <script>
-      const pages = document.getElementById("pages");
-      const continueBtn = document.getElementById("continue-btn");
-      const backBtn = document.getElementById("back-btn");
+      const pages = document.getElementById('pages');
+      const continueBtn = document.getElementById('continue-btn');
+      const backBtn = document.getElementById('back-btn');
 
-      continueBtn.addEventListener("click", () => {
-        pages.style.transform = "translateX(-50%)";
+      continueBtn.addEventListener('click', () => {
+        pages.style.transform = 'translateX(-50%)';
       });
 
-      backBtn.addEventListener("click", () => {
-        pages.style.transform = "translateX(0)";
+      backBtn.addEventListener('click', () => {
+        pages.style.transform = 'translateX(0)';
       });
     </script>
   </body>
