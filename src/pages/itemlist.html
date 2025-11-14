@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../style.css" rel="stylesheet" />
+    <script type="module" src="../components/header.ts"></script>
+    <title>상품 리스트</title>
+  </head>
+  <body>
+    <main class="flex flex-col min-w-[360px] nikeDesktop:flex-row nikeDesktop:h-screen">
+      <section>
+        <!-- 제목 -->
+        <h1 class="text-[1.25rem] px-5 pt-[13px] pb-[13px] mb-[15px] nikeDesktop:hidden">신제품</h1>
+        <h1 class="text-[1.25rem] px-12 pt-[13px] pb-[30px] hidden nikeDesktop:block">신제품 (749)</h1>
+
+        <!-- 카테고리 목록 -->
+        <div
+          class="category-wrapper flex border-b border-nike-gray-light pt-2 px-1 w-full h-[50px] overflow-x-scroll whitespace-nowrap no-scrollbar nikeDesktop:flex-col nikeDesktop:h-screen nikeDesktop:w-[260px] nikeDesktop:items-start nikeDesktop:pt-0 nikeDesktop:px-0 nikeDesktop:mr-10 nikeDesktop:overflow-y-scroll nikeDesktop:border-b-0 nikeDesktop:overflow-x-hidden nikeDesktop:pb-26"
+        >
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">신발</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">탑 & 티셔츠</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">후디 & 크루</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">재킷 & 베스트</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">팬츠 & 타이츠</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">쇼츠</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">스포츠 브라</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">트랙수트</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">점프수트 & 롬퍼스</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">스커트 & 드레스</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">양말</button>
+          <button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">용품</button>
+          <hr class="border-nike-gray-light w-full ml-12 mt-6" />
+          <!-- 추가 목록 -->
+          <div class="additional-category w-full hidden nikeDesktop:block">
+            <div class="flex flex-col ml-12 mt-1 gap-1">
+              <p class="gender my-3 flex">성별<img src="/assets/icon24px/icon-up.svg" alt="" class="ml-auto mr-2.5" /></p>
+              <div>
+                <input type="checkbox" id="male" />
+                <label for="male">남성</label>
+              </div>
+              <div>
+                <input type="checkbox" id="female" />
+                <label for="female">여성</label>
+              </div>
+              <div>
+                <input type="checkbox" id="unisex" />
+                <label for="unisex">유니섹스</label>
+              </div>
+            </div>
+            <hr class="border-nike-gray-light ml-12 mt-6" />
+            <div class="flex flex-col ml-12 mt-1 gap-1">
+              <p class="is-kid my-3 flex">키즈<img src="/assets/icon24px/icon-up.svg" alt="" class="ml-auto mr-2.5" /></p>
+              <div>
+                <input type="checkbox" id="boy" />
+                <label for="boy">남아</label>
+              </div>
+              <div>
+                <input type="checkbox" id="girl" />
+                <label for="girl">여아</label>
+              </div>
+            </div>
+            <hr class="border-nike-gray-light ml-12 mt-6" />
+            <div class="flex flex-col ml-12 mt-1 gap-1">
+              <p class="kid-age my-3 flex">키즈 연령<img src="/assets/icon24px/icon-up.svg" alt="" class="ml-auto mr-2.5" /></p>
+              <div>
+                <input type="checkbox" id="baby" />
+                <label for="baby">베이비(0-3세)</label>
+              </div>
+              <div>
+                <input type="checkbox" id="little" />
+                <label for="little">리틀키즈(3-7세)</label>
+              </div>
+              <div>
+                <input type="checkbox" id="junior" />
+                <label for="junior">주니어(7-15세)</label>
+              </div>
+            </div>
+            <hr class="border-nike-gray-light ml-12 mt-6" />
+            <div class="flex flex-col ml-12 mt-1 gap-1">
+              <p class="price-range my-3 flex">가격대<img src="/assets/icon24px/icon-up.svg" alt="" class="ml-auto mr-2.5" /></p>
+              <div>
+                <input type="checkbox" id="price-0-50" />
+                <label for="price-0-50">0 - 50,000원</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="price-50-100" />
+                <label for="price-50-100">50,000 - 100,000원</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="price-100-150" />
+                <label for="price-100-150">100,000 - 150,000원</label>
+              </div>
+
+              <div>
+                <input type="checkbox" id="price-150-200" />
+                <label for="price-150-200">150,000 - 200,000원</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside>
+        <!-- 필터 바 -->
+        <div class="filter-bar pt-[16.5px] pb-[15px] mb-[15px] content-center inline-flex w-full h-[60px]">
+          <p class="total-item ml-5 inline-flex text-nike-gray-dark nikeDesktop:hidden">741개의 결과</p>
+          <div class="desktop-button hidden nikeDesktop:block nikeDesktop:ml-auto">
+            <button class="item-filter-hidden px-5 py-[3px] inline-flex items-center ml-auto">필터숨기기<img src="/assets/icon24px/icon-filter.svg" alt="필터이미지" /></button>
+            <button class="item-filter-sort mr-5 pr-3 py-[3px] inline-flex items-center ml-auto">정렬기준:<img src="/assets/icon24px/icon-down.svg" alt="필터이미지" /></button>
+          </div>
+          <button class="item-filter mr-5 px-5 py-[3px] inline-flex items-center gap-[3px] border-nike-gray-light border-solid border rounded-[50px] ml-auto nikeDesktop:hidden">필터<img src="/assets/icon24px/icon-filter.svg" alt="필터이미지" /></button>
+        </div>
+
+        <!-- 상품 목록 -->
+        <div class="item-list-wrapper flex w-full flex-wrap gap-x-1.5 gap-y-4.5 nikeDesktop:gap-x-0">
+          <figure class="prod1 w-[calc((100%-6px)/2)] nikeDesktop:w-[calc((100%-24px)/3)] nikeDesktop:px-2">
+            <a href="/"><img src="/api/dbinit/team-nike/uploadFiles/AIR_MAX_A_01.png" alt="신발 이미지" /> </a>
+            <figcaption>
+              <a href="/">
+                <p class="text-sm text-nike-red px-3 nikeDesktop:px-0">신제품</p>
+                <p class="text-sm px-3 nikeDesktop:px-0">테이텀 2 PF</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">농구화</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">1개 색상</p>
+                <p class="text-base px-3 nikeDesktop:px-0">149,000원</p>
+              </a>
+            </figcaption>
+          </figure>
+          <figure class="prod2 w-[calc((100%-6px)/2)] nikeDesktop:w-[calc((100%-24px)/3)] nikeDesktop:px-2">
+            <a href="/"><img src="/api/dbinit/team-nike/uploadFiles/AIR_MAX_B_01.png" alt="신발 이미지" /> </a>
+            <figcaption>
+              <a href="/">
+                <p class="text-sm text-nike-red px-3 nikeDesktop:px-0">신제품</p>
+                <p class="text-sm px-3 nikeDesktop:px-0">테이텀 2 PF</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">농구화</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">1개 색상</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">1개 색상</p>
+                <p class="text-base px-3 nikeDesktop:px-0">149,000원</p>
+              </a>
+            </figcaption>
+          </figure>
+          <figure class="prod3 w-[calc((100%-6px)/2)] nikeDesktop:w-[calc((100%-24px)/3)] nikeDesktop:px-2">
+            <a href="/"><img src="/api/dbinit/team-nike/uploadFiles/AIR_MAX_C_01.png" alt="신발 이미지" /> </a>
+            <figcaption>
+              <a href="/">
+                <p class="text-sm text-nike-red px-3 nikeDesktop:px-0">신제품</p>
+                <p class="text-sm px-3 nikeDesktop:px-0">테이텀 2 PF</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">농구화</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">1개 색상</p>
+                <p class="text-base px-3 nikeDesktop:px-0">149,000원</p>
+              </a>
+            </figcaption>
+          </figure>
+          <figure class="prod4 w-[calc((100%-6px)/2)] nikeDesktop:w-[calc((100%-24px)/3)] nikeDesktop:px-2">
+            <a href="/"><img src="/api/dbinit/team-nike/uploadFiles/AIR_MAX_D_01.png" alt="신발 이미지" /> </a>
+            <figcaption>
+              <a href="/">
+                <p class="text-sm text-nike-red px-3 nikeDesktop:px-0">신제품</p>
+                <p class="text-sm px-3 nikeDesktop:px-0">테이텀 2 PF</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">농구화</p>
+                <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">1개 색상</p>
+                <p class="text-base px-3 nikeDesktop:px-0">149,000원</p>
+              </a>
+            </figcaption>
+          </figure>
+        </div>
+      </aside>
+    </main>
+  </body>
+</html>
