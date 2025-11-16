@@ -28,20 +28,24 @@ async function getData() {
 
 function renderItemList(prds: Products[]) {
   const result = prds.map((prd) => {
-    return `
+    let itemInfo = '';
+    itemInfo += `
       <figure class="prod1 w-[calc((100%-6px)/2)] nikeDesktop:w-[calc((100%-24px)/3)] nikeDesktop:px-2">
-            <a href="/src/pages/itemdetail?_id=${prd._id}"><img src="${prd.mainImages[0].path}" alt="신발 이미지" /> </a>
+            <a href="/src/pages/itemdetail?_id=${prd._id}"><img src="${prd.mainImages[0].path}" alt="${prd.name} 신발 이미지" /> </a>
             <figcaption>
-              <a href="/src/pages/itemdetail">
-                <p class="text-sm text-nike-red px-3 nikeDesktop:px-0">신제품</p>
-                <p class="text-sm px-3 nikeDesktop:px-0">${prd.name}</p>
+              <a href="/src/pages/itemdetail?_id=${prd._id}">`;
+    if (prd.extra.isNew) {
+      itemInfo += `<p class="text-sm text-nike-red px-3 nikeDesktop:px-0">신제품</p>`;
+    }
+    // 제품에 대한 부가 정보를 넣어야하는데 DB에 정보가 없어서 이름으로만 넣음
+    itemInfo += `<p class="text-sm px-3 nikeDesktop:px-0">${prd.name}</p>
                 <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">${prd.name}</p>
                 <p class="text-sm text-nike-gray-dark font-normal px-3 nikeDesktop:px-0">${prd.name}</p>
-                <p class="text-base px-3 nikeDesktop:px-0">${prd.price}</p>
+                <p class="text-base px-3 nikeDesktop:px-0">${prd.price.toLocaleString()} 원</p>
               </a>
             </figcaption>
-          </figure>
-    `;
+          </figure>`;
+    return itemInfo;
   });
   const itemList = document.querySelector('.item-list-wrapper');
   if (itemList) {
