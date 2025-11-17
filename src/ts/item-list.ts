@@ -12,7 +12,7 @@ console.log('newQuery 파라미터:', newQuery);
 console.log('genderQuery 파라미터:', genderQuery);
 console.log('현재 URL:', window.location.href);
 
-async function getData() {
+export async function getData() {
   const axios = getAxios();
   try {
     // categoryQuery가 있으면 쿼리를 포함해서 요청
