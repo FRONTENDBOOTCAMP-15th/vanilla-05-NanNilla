@@ -154,8 +154,31 @@ async function handleSort(sortUrl: string, label: string) {
   sortBtnImage?.setAttribute('src', '/assets/icon24px/icon-down.svg');
 }
 
-// 각 정렬 버튼 이벤트
+// 각 정렬 버튼에 대한 이벤트
 priceHighBtn?.addEventListener('click', () => handleSort(url + `&sort={"price":-1}`, '높은 가격순'));
 priceLowBtn?.addEventListener('click', () => handleSort(url + `&sort={"price":1}`, '낮은 가격순'));
 recentBtn?.addEventListener('click', () => handleSort(url + `&sort={"createdAt":-1}`, '최신순'));
 recommendBtn?.addEventListener('click', () => handleSort(url + `&sort={"extra.isNew":-1,"extra.isBest":-1}`, '추천순'));
+
+// 모바일 필터 버튼
+const mobileFilterBtn = document.querySelector('.item-filter');
+const mobileFilterModal = document.querySelector('.mobile-filter-wrapper');
+const mobileFilterExit = document.querySelector('.mobile-filter-exit');
+const mobileFilterApply = document.querySelector('.mobile-filter-apply');
+
+// 모바일 필터에서 필터 버튼누르면 모달이 나오게함
+mobileFilterBtn?.addEventListener('click', function () {
+  mobileFilterModal?.classList.toggle('hidden');
+  document.body.style.overflow = 'hidden';
+});
+
+// 모바일 필터에서 닫기 버튼이나 적용 누르면 모달 끔
+mobileFilterExit?.addEventListener('click', function () {
+  mobileFilterModal?.classList.toggle('hidden');
+  document.body.style.overflow = ''; // 모달이 열렸을때 body 스크롤 해제
+});
+
+mobileFilterApply?.addEventListener('click', function () {
+  mobileFilterModal?.classList.toggle('hidden');
+  document.body.style.overflow = ''; // 모달이 닫히면 body 스크롤 해제
+});

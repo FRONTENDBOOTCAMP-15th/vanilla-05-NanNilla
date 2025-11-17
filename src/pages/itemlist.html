@@ -12,6 +12,72 @@
     <title>상품 리스트</title>
   </head>
   <body>
+    <!-- 모바일 버전 필터 -->
+    <div class="mobile-filter-wrapper hidden text-[16px] bg-nike-white w-screen h-screen fixed overflow-y-scroll nikeDesktop:hidden">
+      <div class="mobile-filter-title mt-9 ml-5">필터</div>
+      <button class="mobile-filter-exit w-8 h-8 absolute top-5 right-5"><img src="/assets/icon-etc/icon-exit.svg" alt="닫기 버튼" /></button>
+      <div class="mobile-sort-filter mx-5 py-7 border-b-nike-gray-lighter border-b">
+        <div>정렬기준</div>
+        <div class="flex pt-5 mt-1.5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>최신순</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>추천순</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>높은 가격순</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>낮은 가격순</div>
+        </div>
+      </div>
+      <div class="mobile-gender-filter mx-5 py-7 border-b-nike-gray-lighter border-b">
+        <div>성별</div>
+        <div class="flex pt-5 mt-1.5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>남성</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>여성</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>유니섹스</div>
+        </div>
+      </div>
+      <div class="mobile-price-filter mx-5 py-7 border-b-nike-gray-lighter border-b">
+        <div>가격대</div>
+        <div class="flex pt-5 mt-1.5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>0 - 50,000 원</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>50,000 - 100,000 원</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>100,000 - 150,000 원</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>150,000 - 200,000 원</div>
+        </div>
+        <div class="flex pt-5">
+          <input type="checkbox" class="mr-1.5" />
+          <div>200,000 원+</div>
+        </div>
+      </div>
+      <div class="mobile-filter-button flex my-9 justify-center">
+        <button class="border-nike-gray-lighter border rounded-4xl px-[41.525px] py-[9px] mr-1">지우기</button>
+        <button class="mobile-filter-apply bg-nike-black text-nike-white border rounded-4xl px-[47.75px] py-[9px] ml-1">적용</button>
+      </div>
+    </div>
     <nike-header></nike-header>
     <main class="flex flex-col min-w-[360px] nikeDesktop:flex-row nikeDesktop:h-screen">
       <section>
