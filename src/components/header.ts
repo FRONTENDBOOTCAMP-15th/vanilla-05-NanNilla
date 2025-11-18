@@ -7,17 +7,17 @@ class HeaderComponent extends HTMLElement {
   // UI 렌더링
   render() {
     this.innerHTML = `
-    <header class="flex w-full h-15 gap-24.5 justify-center items-center bg-nike-white">
-      <button class="box-border px-2.5 py-5"><a href="/index.html"> <img src="/assets/logo.svg" alt="나이키 홈"></a>
+    <header class="flex w-full h-15 px-6 justify-between items-center bg-nike-white">
+      <button class="box-border"><a href="/index.html"> <img src="/assets/logo.svg" alt="나이키 홈"></a>
       </button>
       <div class="flex flex-row">
-        <button class="px-3 items-center justify-between text-2xl leading-7 font-medium hidden nikeDesktop:block" data-new-only="true"><span><a href="/src/pages/itemlist?extra.isNew=true">New & Featured</a></span></button>
+        <button class="px-3 items-center justify-between text-2xl leading-7 font-medium hidden nikeDesktop:block"><span><a href="/src/pages/itemlist?extra.isNew=true">New & Featured</a></span></button>
         <button class="px-3 items-center justify-between text-2xl leading-7 font-medium hidden nikeDesktop:block"><span><a href="/src/pages/itemlist?extra.gender=men">Men</a></span></button>
         <button class="px-3 items-center justify-between text-2xl leading-7 font-medium hidden nikeDesktop:block"><span><a href="/src/pages/itemlist?extra.gender=women">Women</a></span></button>
         <button class="px-3 items-center justify-between text-2xl leading-7 font-medium hidden nikeDesktop:block"><span><a href="/src/pages/itemlist?extra.gender=kids">Kids</a></span></button>
         <button class="px-3 items-center justify-between text-2xl leading-7 font-medium hidden nikeDesktop:block"><span><a href="/src/pages/itemlist?extra.isNew=true">Sale</a></span></button>
       </div>
-        <div class="flex">
+      <div class="flex">
         <button><a href=""></a><img src="/assets/icon36px/icon-search.svg" alt=""></button>
         <button><a href=""></a><img src="/assets/icon36px/icon-profile.svg" alt=""></button>
         <button><a href="/src/pages/cart"><img src="/assets/icon36px/icon-cart-in.svg" alt=""></a></button>
@@ -28,7 +28,7 @@ class HeaderComponent extends HTMLElement {
       <div class="flex flex-col gap-9.5">
         <input type="checkbox" id="menu" class="peer hidden"><label for="menu" class="w-9 h-9 absolute right-2 p-1 z-30 box-border bg-[url(/assets/icon36px/icon-close.svg)] cursor-pointer"></label>
       <div class="flex gap-5 pl-8.5 pt-19">
-        <button class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base"><a href="../../src/pages/signup.html">가입하기</a></button>
+        <button class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base"><a href="../../src/pages/signin.html">가입하기</a></button>
         <button class="w-19.5 h-10 rounded-full bg-nike-white text-nike-black border border-nike-gray-light text-base"><a href="../../src/pages/signin.html">로그인</a></button>
       </div>
       <div class="flex flex-col pl-8.5 gap-6">
