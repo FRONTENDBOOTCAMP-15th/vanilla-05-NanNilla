@@ -5,8 +5,7 @@ import type { ItemListRes } from '../types/response';
 const params = new URLSearchParams(window.location.search);
 const newQuery = params.get('extra.isNew');
 const categoryQuery = params.get('extra.category.0');
-const IdQuery = params.get('_id');
-
+const IdQuery: string | null = params.get('_id');
 console.log('name 파라미터:', newQuery);
 console.log('category 파라미터:', categoryQuery);
 console.log('현재 URL:', window.location.href);
@@ -30,28 +29,41 @@ async function getData() {
   }
 }
 
+// 상품 이름, 가격, 이미지 출력
 function render(prds: Products[]) {
   const result = prds?.map((prd) => {
+    const imageHtml = prd.mainImages
+      .map((image) => {
+        return `
+        <button class="cursor: pointer;">
+          <img class="w-[125px] h-[125px]" src="${image.path}" alt="${prd.name} - ${image.name}" />
+        </button>
+      `;
+      })
+      .join('');
+
     return `
+      <main class="detail-main pt-20 flow-root">
+        <h1 class=" h-8.75 ml-6 font-medium text-xl font-Noto">${prd?.name}</h1>
+        <p class=" h-7 ml-6 font-medium font-Noto">${prd.name}</p>
+        <div class="detail-price-info pt-3 ml-6 flex">
+          <span class="inline-block h-7 mr-2 font-medium font-Noto">${prd.price}</span>
+          <s class="inline-block h-7 mr-2 font-medium font-Noto text-nike-gray-medium">${prd.price}</s>
+          <span class="inline-block h-7 font-medium font-Noto text-nike-green">${prd.price}</span>
+        </div>
 
-    <main class="detail-main pt-20 flow-root">
-      <h1 class=" h-8.75 ml-6 font-medium text-xl font-Noto">${prd?.name}</h1>
-      <p class=" h-7 ml-6 font-medium font-Noto">${prd.name}</p>
-      <div class="detail-price-info pt-3 ml-6 flex">
-        <span class="inline-block h-7 mr-2 font-medium font-Noto">${prd.price}</span>
-        <s class="inline-block h-7 mr-2 font-medium font-Noto text-nike-gray-medium">${prd.price}</s> 
-        <span class="inline-block h-7 font-medium font-Noto text-nike-green">${prd.price}</span>
-      </div>
+        <figure class="detail-item-image flex overflow-x-auto pt-6">
+          
+          <img class="" src="${prd.mainImages[0].path}" alt="${prd.name} 이미지" />
+          
+        </figure>
+        
+        <div class="detail-item-color pt-0.75 flex gap-2.5 overflow-x-auto">
+          ${imageHtml}
+        </div>
+      </main>
 
-    <figure class="detail-item-image pt-6">
-       <a href="/src/pages/itemdetail?_id=${prd._id}"><img class="w-full" src="${prd.mainImages[0].path}" alt="${prd.name} 이미지" />
-      </figure>
-      <div class="detail-item-color pt-0.75 flex gap-2.5 overflow-x-auto">
-        <img class="w-[125px] h-[125px]" src="${prd.mainImages[0].path}" alt="${prd.name}" />
-        <img class="w-[125px] h-[125px]" src="${prd.mainImages[0].path}" alt="${prd.name}" />
-        <img class="w-[125px] h-[125px]" src="${prd.mainImages[0].path}" alt="${prd.name}" />
-      </div>
-
+   
     `;
   });
   const itemList = document.querySelector('.item-list-wrapper');
@@ -77,31 +89,74 @@ if (data?.ok) {
   render(filteredData);
 }
 
+// 제품 이미지 출력
+// const axiosInstace = getAxios();
+// const container = document.querySelector('.item-list-wrapper');
+
+// async function getMainProduct() {
+//   try {
+//     const id = IdQuery;
+
+//     const { data } = await axiosInstace.get(`/products/${id}`);
+//     const { item } = data;
+//     console.log(item);
+
+//     const imagesArray = item.mainImages;
+
+//     imagesArray.map((image) => {
+//       const productImg = document.createElement('img');
+//       productImg.src = image.path;
+//       productImg.classList.add('flex', 'overflow-x-auto', 'pt-6');
+//       container?.append(productImg);
+//     });
+//   } catch (err) {
+//     console.log('제품 이미지를 가져오는 중 오류 발생');
+//   }
+// }
+// getMainProduct();
+
 // 제품 사이즈 출력
 const axiosInstace = getAxios();
 const container = document.querySelector('.container');
-
-async function getDetailProduct() {
+export let selectedSize: number | null = null;
+async function getSizeProduct() {
   try {
     const id = IdQuery;
-
     const { data } = await axiosInstace.get(`/products/${id}`);
     const { item } = data;
 
-    console.log(item);
-
     const sizeList = item.extra.size;
 
-    sizeList.map((data: number) => {
+    sizeList.forEach((sizeData: number) => {
       const productSize = document.createElement('button');
-      productSize.textContent = String(data);
+      productSize.id = String(sizeData);
+      productSize.textContent = String(sizeData);
+
+      // 초기 버튼 스타일
       productSize.classList.add('w-[56.4px]', 'px-4', 'py-2', 'border', 'border-gray-300', 'rounded-md', 'text-sm', 'hover:bg-gray-100');
 
-      container?.append(productSize);
-    });
-  } catch (err) {
-    // 사이즈 배열이 없을 때
+      productSize.addEventListener('click', () => {
+        selectedSize = sizeData; // 1. 값 업데이트
 
+        // 모든 버튼 초기화
+        const allButtons = container?.querySelectorAll('button');
+        allButtons?.forEach((btn) => {
+          btn.classList.remove('border-black', 'font-bold');
+          btn.classList.add('border-gray-300');
+        });
+
+        //  현재 버튼 활성화
+        productSize.classList.add('border-black', 'font-bold');
+        productSize.classList.remove('border-gray-300');
+
+        console.log(selectedSize); // 선택된 값 확인 (클릭 시마다 실행)
+      });
+
+      // 버튼을 컨테이너에 추가
+      container?.append(productSize);
+    }); //
+  } catch (err) {
+    // 사이즈가 DB에 없을 때
     function noArray() {
       return `
 <button class="w-[56.4px] px-4 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-100" type="button ">250</button>
@@ -129,4 +184,17 @@ async function getDetailProduct() {
   }
 }
 
-getDetailProduct();
+getSizeProduct();
+
+// 비회원 일때 로컬스토리지에 상품 담는 기능 ( 장바구니 )
+const addCartBtn = document.querySelector('.addCartBtn') as HTMLButtonElement;
+console.log('버튼의 id 값', IdQuery);
+
+addCartBtn.addEventListener('click', () => {
+  localStorage.setItem('cart', IdQuery);
+  alert('장바구니에 상품이 추가되었습니다');
+});
+
+// 로그인 할 때 로컬스토리지를의 데이터를 DB로 병합하고 로컬스토리지 삭제
+
+// 로그인 후
