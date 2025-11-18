@@ -192,6 +192,35 @@ mobileFilterExit?.addEventListener('click', function () {
 });
 
 mobileFilterApply?.addEventListener('click', function () {
+  // 선택된 정렬 옵션 가져오기
+  const selectedSort = document.querySelector('input[name="mobile-sort"]:checked') as HTMLInputElement;
+
+  if (selectedSort) {
+    let sortUrl = '';
+    let sortLabel = '';
+
+    const sortId = selectedSort.id;
+
+    if (sortId === 'mobile-recommend-sort') {
+      sortUrl = url + `&sort={"extra.isNew":-1,"extra.isBest":-1}`;
+      sortLabel = '추천순';
+    } else if (sortId === 'mobile-recent-sort') {
+      sortUrl = url + `&sort={"createdAt":-1}`;
+      sortLabel = '최신순';
+    } else if (sortId === 'mobile-price-high-sort') {
+      sortUrl = url + `&sort={"price":-1}`;
+      sortLabel = '높은 가격순';
+    } else if (sortId === 'mobile-price-low-sort') {
+      sortUrl = url + `&sort={"price":1}`;
+      sortLabel = '낮은 가격순';
+    }
+
+    // 정렬 적용
+    if (sortUrl) {
+      handleSort(sortUrl, sortLabel);
+    }
+  }
+
   mobileFilterModal?.classList.toggle('hidden');
   document.body.style.overflow = ''; // 모달이 닫히면 body 스크롤 해제
 });
