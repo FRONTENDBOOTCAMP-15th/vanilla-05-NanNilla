@@ -83,6 +83,15 @@ function renderTitle(prds: Products[]) {
   }
 }
 
+function renderTotalItem(prds: Products[]) {
+  const result = `${prds.length}개의 결과`;
+
+  const totalItem = document.querySelector('.total-item');
+  if (totalItem) {
+    totalItem.textContent = result;
+  }
+}
+
 function renderHiddenTitle(prds: Products[]) {
   const divEl = document.createElement('div');
   const pEl = document.createElement('p');
@@ -108,6 +117,7 @@ if (data?.ok) {
   renderItemList(data.item);
   renderTitle(data.item);
   renderHiddenTitle(data.item);
+  renderTotalItem(data.item);
 }
 
 // 필터 숨기기
@@ -148,6 +158,7 @@ async function handleSort(sortUrl: string, label: string) {
     renderItemList(data.item);
     renderTitle(data.item);
     renderHiddenTitle(data.item);
+    renderTotalItem(data.item);
   }
 
   [recommendBtn, recentBtn, priceHighBtn, priceLowBtn].forEach((btn) => btn?.classList.add('hidden'));
