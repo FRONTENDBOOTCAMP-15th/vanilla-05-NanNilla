@@ -5,7 +5,6 @@ import type { CartItem } from './cart';
 
 const params = new URLSearchParams(window.location.search);
 const newQuery = params.get('extra.isNew');
-const categoryQuery = params.get('extra.category.0');
 const IdQuery: string | null = params.get('_id');
 
 async function getData() {
@@ -141,7 +140,7 @@ function render(prds: Products[]) {
 }
 
 const data = await getData();
-let filteredData: any;
+let filteredData: Products[] = [];
 if (data?.ok) {
   filteredData = data?.item;
   if (IdQuery) {
