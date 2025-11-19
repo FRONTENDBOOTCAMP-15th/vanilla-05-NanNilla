@@ -28,49 +28,90 @@ async function getData() {
     console.log(err);
   }
 }
+const itemList = document.querySelector('.item-list-wrapper');
 
 // 상품 이름, 가격, 이미지 출력
 function render(prds: Products[]) {
-  const result = prds?.map((prd) => {
-    const imageHtml = prd.mainImages
-      .map((image) => {
-        return `
-        <button class="cursor: pointer;">
-          <img class="w-[125px] h-[125px]" src="${image.path}" alt="${prd.name} - ${image.name}" />
-        </button>
-      `;
-      })
-      .join('');
+  const div2Tag = document.createElement('div');
+  div2Tag.classList.add('detail-item-color', 'pt-0.75', 'flex', 'gap-2.5', 'overflow-x-auto');
 
-    return `
-      <main class="detail-main pt-20 flow-root">
-        <h1 class=" h-8.75 ml-6 font-medium text-xl font-Noto">${prd?.name}</h1>
-        <p class=" h-7 ml-6 font-medium font-Noto">${prd.name}</p>
-        <div class="detail-price-info pt-3 ml-6 flex">
-          <span class="inline-block h-7 mr-2 font-medium font-Noto">${prd.price}</span>
-          <s class="inline-block h-7 mr-2 font-medium font-Noto text-nike-gray-medium">${prd.price}</s>
-          <span class="inline-block h-7 font-medium font-Noto text-nike-green">${prd.price}</span>
-        </div>
+  prds?.map((prd) => {
+    prd.mainImages.map((image) => {
+      const itemColorButton = document.createElement('button') as HTMLButtonElement;
+      const itemImage = document.createElement('img') as HTMLImageElement;
+      itemColorButton.classList.add('itemColorButton', 'min-h-[125px]', 'cursor:pointer');
+      itemImage.classList.add('min-w-[125px]', 'min-h-[125px]');
+      itemImage.src = image.path;
+      itemImage.alt = `${prd.name} - ${image.name}`;
 
-        <figure class="detail-item-image flex overflow-x-auto pt-6">
-          
-          <img class="" src="${prd.mainImages[0].path}" alt="${prd.name} 이미지" />
-          
-        </figure>
-        
-        <div class="detail-item-color pt-0.75 flex gap-2.5 overflow-x-auto">
-          ${imageHtml}
-        </div>
-      </main>
+      itemColorButton.addEventListener('click', () => {
+        imgTag.src = image.path;
+      });
 
-   
-    `;
+      itemColorButton.appendChild(itemImage);
+      div2Tag.appendChild(itemColorButton);
+    });
+
+    const mainTag = document.createElement('main');
+    mainTag.classList.add('detail-main', 'pt-20', 'flow-root');
+
+    const h1Tag = document.createElement('h1');
+    h1Tag.classList.add('h-8.75', 'ml-6', 'font-medium', 'text-xl', 'font-Noto');
+    h1Tag.textContent = prd.name;
+
+    const pTag = document.createElement('p');
+    pTag.classList.add('h-7', 'ml-6', 'font-medium', 'font-Noto');
+    pTag.textContent = prd.name;
+
+    const div1Tag = document.createElement('div');
+    div1Tag.classList.add('detail-price-info', 'pt-3', 'ml-6', 'flex');
+
+    const span1Tag = document.createElement('span');
+    span1Tag.classList.add('inline-block', 'h-7', 'mr-2', 'font-medium', 'font-Noto');
+    span1Tag.textContent = String(prd.price);
+
+    const sTag = document.createElement('s');
+    sTag.classList.add('inline-block', 'h-7', 'mr-2', 'font-medium', 'font-Noto', 'text-nike-gray-medium');
+    sTag.textContent = String(prd.price);
+
+    const span2Tag = document.createElement('span');
+    span2Tag.classList.add('inline-block', 'h-7', 'font-medium', 'font-Noto', 'text-nike-green');
+    span2Tag.textContent = String(prd.price);
+
+    div1Tag.appendChild(span1Tag);
+    div1Tag.appendChild(sTag);
+    div1Tag.appendChild(span2Tag);
+
+    const figureTag = document.createElement('figure');
+    figureTag.classList.add('min-w-[360px]', 'detail-item-image', 'overflow-x-auto', 'pt-6', 'justify-center', 'items-center');
+
+    const imgTag = document.createElement('img');
+    imgTag.src = prd.mainImages[0].path;
+    imgTag.alt = prd.name + '이미지';
+
+    figureTag.appendChild(imgTag);
+
+    itemList?.appendChild(mainTag);
+    itemList?.appendChild(h1Tag);
+    itemList?.appendChild(pTag);
+    itemList?.appendChild(div1Tag);
+    itemList?.appendChild(figureTag);
+
+    itemList?.appendChild(div2Tag);
   });
-  const itemList = document.querySelector('.item-list-wrapper');
-  if (itemList) {
-    itemList.innerHTML = result.join('');
-  }
 }
+
+const btn = document.querySelector('.itemColorButton');
+
+btn?.addEventListener('click', function () {
+  // 기존 active 클래스 제거 (다른 버튼이 있다면)
+  const activeBtn = document.querySelector('.btn.active');
+  if (activeBtn) {
+    activeBtn.classList.remove('active');
+  }
+  // 현재 버튼에 active 클래스 추가
+  this.classList.add('active');
+});
 
 const data = await getData();
 if (data?.ok) {
@@ -178,23 +219,17 @@ async function getSizeProduct() {
     if (itemList) {
       itemList.innerHTML = noArray();
     }
-
     console.log('사이즈 배열 존재하지 않음', err);
     noArray();
   }
 }
-
 getSizeProduct();
-
 // 비회원 일때 로컬스토리지에 상품 담는 기능 ( 장바구니 )
 const addCartBtn = document.querySelector('.addCartBtn') as HTMLButtonElement;
 console.log('버튼의 id 값', IdQuery);
-
 addCartBtn.addEventListener('click', () => {
   localStorage.setItem('cart', IdQuery);
   alert('장바구니에 상품이 추가되었습니다');
 });
-
 // 로그인 할 때 로컬스토리지를의 데이터를 DB로 병합하고 로컬스토리지 삭제
-
 // 로그인 후
