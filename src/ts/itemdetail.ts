@@ -5,7 +5,6 @@ import type { CartItem } from './cart';
 
 const params = new URLSearchParams(window.location.search);
 const newQuery = params.get('extra.isNew');
-const categoryQuery = params.get('extra.category.0');
 const IdQuery: string | null = params.get('_id');
 
 async function getData() {
@@ -31,7 +30,7 @@ let selectedProduct = {};
 function render(prds: Products[]) {
   const div2Tag = document.createElement('div');
   div2Tag.classList.add('detail-item-color', 'pt-0.75', 'flex', 'gap-2.5', 'overflow-x-auto');
-
+  console.log(prds);
   prds?.map((prd) => {
     const figureTag = document.createElement('figure');
     figureTag.classList.add('min-w-[360px]', 'detail-item-image', 'overflow-x-auto', 'pt-6', 'justify-center', 'items-center');
@@ -109,22 +108,28 @@ function render(prds: Products[]) {
 
     const pTag = document.createElement('p');
     pTag.classList.add('h-7', 'ml-6', 'font-medium', 'font-Noto');
-    pTag.textContent = prd.name;
+    if (prd.extra.gender === 'men') {
+      pTag.textContent = '남성 신발';
+    } else if (prd.extra.gender === 'women') {
+      pTag.textContent = '여성 신발';
+    } else if (prd.extra.gender === 'kids') {
+      pTag.textContent = '키즈 신발';
+    }
 
     const div1Tag = document.createElement('div');
     div1Tag.classList.add('detail-price-info', 'pt-3', 'ml-6', 'flex');
 
     const span1Tag = document.createElement('span');
     span1Tag.classList.add('inline-block', 'h-7', 'mr-2', 'font-medium', 'font-Noto');
-    span1Tag.textContent = String(prd.price);
+    span1Tag.textContent = `${prd.price.toLocaleString()}원`;
 
     const sTag = document.createElement('s');
     sTag.classList.add('inline-block', 'h-7', 'mr-2', 'font-medium', 'font-Noto', 'text-nike-gray-medium');
-    sTag.textContent = String(prd.price);
+    sTag.textContent = `${prd.price.toLocaleString()}원`;
 
     const span2Tag = document.createElement('span');
     span2Tag.classList.add('inline-block', 'h-7', 'font-medium', 'font-Noto', 'text-nike-green');
-    span2Tag.textContent = String(prd.price);
+    span2Tag.textContent = `${prd.price.toLocaleString()}원`;
 
     div1Tag.appendChild(span1Tag);
     div1Tag.appendChild(sTag);
@@ -141,7 +146,7 @@ function render(prds: Products[]) {
 }
 
 const data = await getData();
-let filteredData: any;
+let filteredData: Products[] = [];
 if (data?.ok) {
   filteredData = data?.item;
   if (IdQuery) {
