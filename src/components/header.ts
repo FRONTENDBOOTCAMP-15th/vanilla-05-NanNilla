@@ -4,87 +4,172 @@ class HeaderComponent extends HTMLElement {
   connectedCallback() {
     this.render();
     this.initAuthUI();
-    this.initMegaMenu();
+    this.initSubMenu();
   }
-  // UI 렌더링
+  // 헤더/사이드 바 UI 렌더링
   render() {
     this.innerHTML = `
     <div class="relative">
       <input type="checkbox" id="menu-toggle" class="peer hidden">
-
       <!-- 헤더 -->
       <header class="flex w-full h-15 px-6 justify-between items-center bg-nike-white">
+        <!-- 나이키 홈 -->
         <button><a href="/index.html"><img src="/assets/logo.svg"></a></button>
+        <!-- 카테고리 (데스크탑) -->
         <div class="flex flex-row">
           <button class="px-3 hidden nikeDesktop:block"><a href="/src/pages/itemlist?extra.isNew=true">New & Featured</a></button>
-          <button id="menu-men"
-            class="px-3 hidden nikeDesktop:block">
-            <span>Men</span>
-          </button>
-          <button class="px-3 hidden nikeDesktop:block"><a href="/src/pages/itemlist?extra.gender=women">Women</a></button>
-          <button class="px-3 hidden nikeDesktop:block"><a href="/src/pages/itemlist?extra.gender=kids">Kids</a></button>
+          <button id="menu-men"class="px-3 hidden nikeDesktop:block"><span>Men</span></button>
+          <button id="menu-women" class="px-3 hidden nikeDesktop:block"><span>Women</span></button>
+          <button id="menu-kids" class="px-3 hidden nikeDesktop:block"><span>Kids</span></button>
           <button class="px-3 hidden nikeDesktop:block"><a href="/src/pages/itemlist?extra.isNew=true">Sale</a></button>
         </div>
+        <!-- 메뉴 -->
         <div class="flex">
           <button><img src="/assets/icon36px/icon-search.svg"></button>
           <button><img src="/assets/icon36px/icon-profile.svg"></button>
           <button><a href="/src/pages/cart"><img src="/assets/icon36px/icon-cart-in.svg"></a></button>
-
           <label for="menu-toggle" class="w-9 h-9 bg-[url(/assets/icon36px/icon-menu.svg)] cursor-pointer"></label>
         </div>
       </header>
 
-      <!-- 서브 메뉴 -->
-      <div id="mega-menu-men" class="fixed left-0 top-15 w-screen h-[500px] bg-white shadow-lg border-t border-gray-300 opacity-0 invisible translate-y-2 transition-all duration-300 z-30">
-        <div class="flex p-15 gap-65">
-              <!-- 2) 신발 -->
-              <div class="flex flex-col gap-3">
-                <a href="/src/pages/itemlist?extra.category.1=PC0102" class="font-semibold text-base mb-2">신발</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010201" class="hover:underline text-sm">라이프스타일</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010202" class="hover:underline text-sm">조던</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010203" class="hover:underline text-sm">러닝</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010204" class="hover:underline text-sm">농구</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010205" class="hover:underline text-sm">미식축구</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010206" class="hover:underline text-sm">축구</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010207" class="hover:underline text-sm">트레이닝 & 짐</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010208" class="hover:underline text-sm">스케이트보딩</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010209" class="hover:underline text-sm">골프</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC0102010" class="hover:underline text-sm">테니스</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC0102011" class="hover:underline text-sm">샌들 & 슬리퍼</a>
-              </div>
+      <!-- 서브 메뉴 (Men) -->
+      <div id="sub-menu-men" class="fixed left-0 top-15 w-screen h-[500px] bg-white shadow-lg border-t border-gray-300 opacity-0 invisible translate-y-2 transition-all duration-300 z-30">
+        <div class="flex p-12 gap-65">
+          <!-- 신발 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0102" class="font-medium text-sm mb-2">신발</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010201" class="font-medium text-nike-gray-dark hover:underline text-xs">라이프스타일</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010202" class="font-medium text-nike-gray-dark hover:underline text-xs">조던</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010203" class="font-medium text-nike-gray-dark hover:underline text-xs">러닝</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010204" class="font-medium text-nike-gray-dark hover:underline text-xs">농구</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010205" class="font-medium text-nike-gray-dark hover:underline text-xs">미식축구</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010206" class="font-medium text-nike-gray-dark hover:underline text-xs">축구</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010207" class="font-medium text-nike-gray-dark hover:underline text-xs">트레이닝 & 짐</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010208" class="font-medium text-nike-gray-dark hover:underline text-xs">스케이트보딩</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010209" class="font-medium text-nike-gray-dark hover:underline text-xs">골프</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC0102010" class="font-medium text-nike-gray-dark hover:underline text-xs">테니스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC0102011" class="font-medium text-nike-gray-dark hover:underline text-xs">샌들 & 슬리퍼</a>
+          </div>
 
-              <!-- 3) 의류 -->
-              <div class="flex flex-col gap-3">
-                <a href="/src/pages/itemlist?extra.category.1=PC0103" class="font-semibold text-base mb-2">의류</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010301" class="hover:underline text-sm">탑 & 티셔츠</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010302" class="hover:underline text-sm">후디 & 크루</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010303" class="hover:underline text-sm">재킷 & 베스트</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010304" class="hover:underline text-sm">팬츠 & 타이츠</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010305" class="hover:underline text-sm">트랙수트</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010306" class="hover:underline text-sm">쇼츠</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010307" class="hover:underline text-sm">점프수트 & 롬퍼스</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010308" class="hover:underline text-sm">서핑 & 수영복</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010309" class="hover:underline text-sm">양말</a>
-              </div>
+          <!-- 의류 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0103" class="font-medium text-sm mb-2">의류</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010301" class="font-medium text-nike-gray-dark hover:underline text-xs">탑 & 티셔츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010302" class="font-medium text-nike-gray-dark hover:underline text-xs">후디 & 크루</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010303" class="font-medium text-nike-gray-dark hover:underline text-xs">재킷 & 베스트</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010304" class="font-medium text-nike-gray-dark hover:underline text-xs">팬츠 & 타이츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010305" class="font-medium text-nike-gray-dark hover:underline text-xs">트랙수트</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010306" class="font-medium text-nike-gray-dark hover:underline text-xs">쇼츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010307" class="font-medium text-nike-gray-dark hover:underline text-xs">점프수트 & 롬퍼스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010308" class="font-medium text-nike-gray-dark hover:underline text-xs">서핑 & 수영복</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010309" class="font-medium text-nike-gray-dark hover:underline text-xs">양말</a>
+          </div>
 
-              <!-- 4) 용품 -->
-              <div class="flex flex-col gap-3">
-                <a href="/src/pages/itemlist?extra.category.1=PC0101" class="font-semibold text-base mb-2">용품</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010101" class="hover:underline text-sm">가방</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010102" class="hover:underline text-sm">모자 & 헤드밴드</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010103" class="hover:underline text-sm">장갑</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010104" class="hover:underline text-sm">슬리브 & 암 밴드</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010105" class="hover:underline text-sm">공</a>
-                <a href="/src/pages/itemlist?extra.category.2=PC010106" class="hover:underline text-sm">보호대</a>
-              </div>
+          <!-- 용품 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0101" class="font-medium text-sm mb-2">용품</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010101" class="font-medium text-nike-gray-dark hover:underline text-xs">가방</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010102" class="font-medium text-nike-gray-dark hover:underline text-xs">모자 & 헤드밴드</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010103" class="font-medium text-nike-gray-dark hover:underline text-xs">장갑</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010104" class="font-medium text-nike-gray-dark hover:underline text-xs">슬리브 & 암 밴드</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010105" class="font-medium text-nike-gray-dark hover:underline text-xs">공</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010106" class="font-medium text-nike-gray-dark hover:underline text-xs">보호대</a>
+          </div>
         </div>
-              
       </div>
+      <!-- 서브 메뉴 (Women) -->
+      <div id="sub-menu-women" class="fixed left-0 top-15 w-screen h-[500px] bg-white shadow-lg border-t border-gray-300 opacity-0 invisible translate-y-2 transition-all duration-300 z-30">
+        <div class="flex p-12 gap-65">
+          <!-- 신발 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0201" class="font-medium text-sm mb-2">신발</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020101" class="font-medium text-nike-gray-dark hover:underline text-xs">라이프스타일</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020102" class="font-medium text-nike-gray-dark hover:underline text-xs">러닝</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020103" class="font-medium text-nike-gray-dark hover:underline text-xs">농구</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020104" class="font-medium text-nike-gray-dark hover:underline text-xs">축구</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020105" class="font-medium text-nike-gray-dark hover:underline text-xs">트레이닝 & 짐</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020106" class="font-medium text-nike-gray-dark hover:underline text-xs">조던</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020107" class="font-medium text-nike-gray-dark hover:underline text-xs">스케이트보딩</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020108" class="font-medium text-nike-gray-dark hover:underline text-xs">골프</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020109" class="font-medium text-nike-gray-dark hover:underline text-xs">테니스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020110" class="font-medium text-nike-gray-dark hover:underline text-xs">샌들 & 슬리퍼</a>
+          </div>
 
+          <!-- 의류 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0202" class="font-medium text-sm mb-2">의류</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020201" class="font-medium text-nike-gray-dark hover:underline text-xs">탑 & 티셔츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020202" class="font-medium text-nike-gray-dark hover:underline text-xs">스포츠 브라</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020203" class="font-medium text-nike-gray-dark hover:underline text-xs">후디 & 크루</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020204" class="font-medium text-nike-gray-dark hover:underline text-xs">쇼츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020205" class="font-medium text-nike-gray-dark hover:underline text-xs">팬츠 & 타이츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020206" class="font-medium text-nike-gray-dark hover:underline text-xs">재킷 & 베스트</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020207" class="font-medium text-nike-gray-dark hover:underline text-xs">트랙수트</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020208" class="font-medium text-nike-gray-dark hover:underline text-xs">점프수트 & 롬퍼스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020209" class="font-medium text-nike-gray-dark hover:underline text-xs">스커트 & 드레스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020210" class="font-medium text-nike-gray-dark hover:underline text-xs">서핑 & 수영복</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020211" class="font-medium text-nike-gray-dark hover:underline text-xs">양말</a>
+          </div>
+
+          <!-- 용품 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0203" class="font-medium text-sm mb-2">용품</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020301" class="font-medium text-nike-gray-dark hover:underline text-xs">가방</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020302" class="font-medium text-nike-gray-dark hover:underline text-xs">모자 & 헤드밴드</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020303" class="font-medium text-nike-gray-dark hover:underline text-xs">장갑</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020304" class="font-medium text-nike-gray-dark hover:underline text-xs">슬리브 & 암 밴드</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020305" class="font-medium text-nike-gray-dark hover:underline text-xs">공</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC020306" class="font-medium text-nike-gray-dark hover:underline text-xs">보호대</a>
+          </div>
+        </div>
+      </div>
+      <!-- 서브 메뉴 (Kids) -->
+      <div id="sub-menu-kids" class="fixed left-0 top-15 w-screen h-[500px] bg-white shadow-lg border-t border-gray-300 opacity-0 invisible translate-y-2 transition-all duration-300 z-30">
+        <div class="flex p-12 gap-65">
+          <!-- 신발 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0301" class="font-medium text-sm mb-2">신발</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030101" class="font-medium text-nike-gray-dark hover:underline text-xs">라이프스타일</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030102" class="font-medium text-nike-gray-dark hover:underline text-xs">조던</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030103" class="font-medium text-nike-gray-dark hover:underline text-xs">러닝</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030104" class="font-medium text-nike-gray-dark hover:underline text-xs">농구</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030105" class="font-medium text-nike-gray-dark hover:underline text-xs">축구</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030106" class="font-medium text-nike-gray-dark hover:underline text-xs">스케이트보딩</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030107" class="font-medium text-nike-gray-dark hover:underline text-xs">샌들 & 슬리퍼</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030108" class="font-medium text-nike-gray-dark hover:underline text-xs">테니스</a>
+          </div>
+
+          <!-- 의류 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0302" class="font-medium text-sm mb-2">의류</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030201" class="font-medium text-nike-gray-dark hover:underline text-xs">탑 & 티셔츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030202" class="font-medium text-nike-gray-dark hover:underline text-xs">쇼츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030203" class="font-medium text-nike-gray-dark hover:underline text-xs">상하의 세트</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030204" class="font-medium text-nike-gray-dark hover:underline text-xs">점프수트 & 롬퍼스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030205" class="font-medium text-nike-gray-dark hover:underline text-xs">팬츠 & 타이츠</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030206" class="font-medium text-nike-gray-dark hover:underline text-xs">스커트 & 드레스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030207" class="font-medium text-nike-gray-dark hover:underline text-xs">양말</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030208" class="font-medium text-nike-gray-dark hover:underline text-xs">스포츠 브라</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030209" class="font-medium text-nike-gray-dark hover:underline text-xs">재킷 & 베스트</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030210" class="font-medium text-nike-gray-dark hover:underline text-xs">후디 & 크루</a>
+          </div>
+
+          <!-- 용품 -->
+          <div class="flex flex-col gap-3">
+            <a href="/src/pages/itemlist?extra.category.1=PC0303" class="font-medium text-sm mb-2">용품</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030301" class="font-medium text-nike-gray-dark hover:underline text-xs">가방</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030302" class="font-medium text-nike-gray-dark hover:underline text-xs">모자 & 헤드밴드</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030303" class="font-medium text-nike-gray-dark hover:underline text-xs">양말</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030304" class="font-medium text-nike-gray-dark hover:underline text-xs">장갑</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030305" class="font-medium text-nike-gray-dark hover:underline text-xs">공</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC030306" class="font-medium text-nike-gray-dark hover:underline text-xs">보호대</a>
+          </div>
+        </div>
+      </div>
       <!-- 사이드바 -->
       <section class="sidebar fixed top-0 right-[-86%] w-77.5 h-full bg-nike-white transition-all duration-300 z-20 peer-checked:right-0 ">
-          <div class="flex flex-col gap-9.5">
-            <input type="checkbox" id="menu" class="peer hidden"><label for="menu-toggle" class="w-9 h-9 absolute right-2 top-2  p-1 z-30 box-border bg-[url(/assets/icon36px/icon-close.svg)] cursor-pointer"></label>
+        <div class="flex flex-col gap-9.5">
+          <input type="checkbox" id="menu" class="peer hidden"><label for="menu-toggle" class="w-9 h-9 absolute right-2 top-2  p-1 z-30 box-border bg-[url(/assets/icon36px/icon-close.svg)] cursor-pointer"></label>
           <div class="flex gap-5 pl-8.5 pt-19">
             <button id="signup-btn" class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base"><a href="src/pages/signin.html">가입하기</a></button>
             <button id="login-btn" class="w-19.5 h-10 rounded-full bg-nike-white text-nike-black border border-nike-gray-light text-base"><a href="src/pages/signin.html">로그인</a></button>
@@ -92,9 +177,9 @@ class HeaderComponent extends HTMLElement {
           </div>
           <div class="flex flex-col pl-8.5 gap-6">
             <button class="flex items-center justify-between text-2xl leading-7 font-medium" data-new-only="true"><span><a href="/src/pages/itemlist?extra.isNew=true">New & Featured</a></span><img src="/assets/icon36px/icon-next.svg"></button>
-            <button class="flex items-center justify-between text-2xl leading-7 font-medium"><span><a href="/src/pages/itemlist?extra.gender=men">Men</a></span><img src="/assets/icon36px/icon-next.svg"></button>
-            <button class="flex items-center justify-between text-2xl leading-7 font-medium"><span><a href="/src/pages/itemlist?extra.gender=women">Women</a></span><img src="/assets/icon36px/icon-next.svg"></button>
-            <button class="flex items-center justify-between text-2xl leading-7 font-medium"><span><a href="/src/pages/itemlist?extra.gender=kids">Kids</a></span><img src="/assets/icon36px/icon-next.svg"></button>
+            <button class="flex items-center justify-between text-2xl leading-7 font-medium"><span><a href="/src/pages/itemlist?extra.category.1=PC0102">Men</a></span><img src="/assets/icon36px/icon-next.svg"></button>
+            <button class="flex items-center justify-between text-2xl leading-7 font-medium"><span><a href="/src/pages/itemlist?extra.category.1=PC0201">Women</a></span><img src="/assets/icon36px/icon-next.svg"></button>
+            <button class="flex items-center justify-between text-2xl leading-7 font-medium"><span><a href="/src/pages/itemlist?extra.category.1=PC0301">Kids</a></span><img src="/assets/icon36px/icon-next.svg"></button>
             <button class="flex items-center justify-between text-2xl leading-7 font-medium"><span><a href="/src/pages/itemlist?extra.isNew=true">Sale</a></span><img src="/assets/icon36px/icon-next.svg"></button>
           </div>
           <div class="flex flex-col w-32.6 pl-8.5">
@@ -103,6 +188,7 @@ class HeaderComponent extends HTMLElement {
             <button class="flex items-center gap-3 text-base font-medium py-2"><img src="/assets/icon24px/icon-order.svg" alt=""><span>주문</span></button>
             <button class="flex items-center gap-3 text-base font-medium py-2"><img src="/assets/icon24px/icon-store.svg" alt=""><span>매장 찾기</span></button>
           </div>
+        </div>
       </section>
 
       <!-- 사이드바 백드랍 -->
@@ -113,6 +199,7 @@ class HeaderComponent extends HTMLElement {
     </div>
     `;
   }
+  // 로그인/로그아웃 상태별 UI
   private initAuthUI() {
     // 토큰 존재하면 로그인 상태
     const accessToken = localStorage.getItem('accessToken');
@@ -143,30 +230,75 @@ class HeaderComponent extends HTMLElement {
       window.location.href = '/index.html';
     });
   }
-
-  private initMegaMenu() {
+  // 서브 메뉴 UI
+  private initSubMenu() {
     const menBtn = this.querySelector('#menu-men') as HTMLElement;
-    const megaMenu = this.querySelector('#mega-menu-men') as HTMLElement;
-
-    if (!menBtn || !megaMenu) return;
-
+    const subMenuMen = this.querySelector('#sub-menu-men') as HTMLElement;
+    const womenBtn = this.querySelector('#menu-women') as HTMLElement;
+    const subMenuWomen = this.querySelector('#sub-menu-women') as HTMLElement;
+    const kidsBtn = this.querySelector('#menu-kids') as HTMLElement;
+    const subMenuKids = this.querySelector('#sub-menu-kids') as HTMLElement;
+    // --------------------------
+    // Men                      
+    // --------------------------
+    if (!menBtn || !subMenuMen) return;
     // 버튼 hover → 메뉴 열기
     menBtn.addEventListener('mouseenter', () => {
-      megaMenu.classList.remove('opacity-0', 'invisible', 'translate-y-2');
+      subMenuMen.classList.remove('opacity-0', 'invisible', 'translate-y-2');
     });
-
     // 버튼에서 나갔는데 메뉴에 안 들어가면 닫기
     menBtn.addEventListener('mouseleave', () => {
       setTimeout(() => {
-        if (!megaMenu.matches(':hover')) {
-          megaMenu.classList.add('opacity-0', 'invisible', 'translate-y-2');
+        if (!subMenuMen.matches(':hover')) {
+          subMenuMen.classList.add('opacity-0', 'invisible', 'translate-y-2');
         }
       }, 80);
     });
-
     // 메뉴에서 마우스 떠나면 닫기
-    megaMenu.addEventListener('mouseleave', () => {
-      megaMenu.classList.add('opacity-0', 'invisible', 'translate-y-2');
+    subMenuMen.addEventListener('mouseleave', () => {
+      subMenuMen.classList.add('opacity-0', 'invisible', 'translate-y-2');
+    });
+
+    // --------------------------
+    // Women                      
+    // --------------------------
+    if (!womenBtn || !subMenuWomen) return;
+    // 버튼 hover → 메뉴 열기
+    womenBtn.addEventListener('mouseenter', () => {
+      subMenuWomen.classList.remove('opacity-0', 'invisible', 'translate-y-2');
+    });
+    // 버튼에서 나갔는데 메뉴에 안 들어가면 닫기
+    womenBtn.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        if (!subMenuWomen.matches(':hover')) {
+          subMenuWomen.classList.add('opacity-0', 'invisible', 'translate-y-2');
+        }
+      }, 80);
+    });
+    // 메뉴에서 마우스 떠나면 닫기
+    subMenuWomen.addEventListener('mouseleave', () => {
+      subMenuWomen.classList.add('opacity-0', 'invisible', 'translate-y-2');
+    });
+
+    // --------------------------
+    // Kids                      
+    // --------------------------
+    if (!kidsBtn || !subMenuKids) return;
+    // 버튼 hover → 메뉴 열기
+    kidsBtn.addEventListener('mouseenter', () => {
+      subMenuKids.classList.remove('opacity-0', 'invisible', 'translate-y-2');
+    });
+    // 버튼에서 나갔는데 메뉴에 안 들어가면 닫기
+    kidsBtn.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        if (!subMenuKids.matches(':hover')) {
+          subMenuKids.classList.add('opacity-0', 'invisible', 'translate-y-2');
+        }
+      }, 80);
+    });
+    // 메뉴에서 마우스 떠나면 닫기
+    subMenuKids.addEventListener('mouseleave', () => {
+      subMenuKids.classList.add('opacity-0', 'invisible', 'translate-y-2');
     });
   }
 }
