@@ -23,59 +23,66 @@ async function getData() {
   }
 }
 
-const itemWrapper = document.querySelector('.item-entire-wrapper');
-const itemList = document.querySelector('.item-list-wrapper');
-const productInfo = document.querySelector('.productInfo');
-const figureTag = document.createElement('figure');
+const itemWrapper = document.querySelector('.item-entire-wrapper'); // item-entire-wrapper 찾기
+const itemList = document.querySelector('.item-list-wrapper') as HTMLElement; // item-list-wrapper 찾기
+const productInfo = document.querySelector('.productInfo'); // productInfo  찾기
+const figureTag = document.createElement('figure'); // figure 태그 생성
 
-let selectedProduct = {};
+let selectedProduct = {}; // selectedProduct를 빈 객체로 선언
 
-const productName = document.createElement('div');
-productName.classList.add('productname');
+const productName = document.createElement('div'); // div 태그 생성
+productName.classList.add('productname'); // productname 라고 클래스명 짓기
 
-const mainTag = document.createElement('main');
-const h1Tag = document.createElement('h1');
-const pTag = document.createElement('p');
-const div1Tag = document.createElement('div');
+const mainTag = document.createElement('main'); // main 태그 생성
+const h1Tag = document.createElement('h1'); // h1 태그 생성
+const pTag = document.createElement('p'); // p 태그 생성
+const div1Tag = document.createElement('div'); // div 태그 생성
 
-productName?.appendChild(mainTag);
-productName?.appendChild(h1Tag);
-productName?.appendChild(pTag);
-productName?.appendChild(div1Tag);
+productName?.appendChild(mainTag); // <div class="productName"><main></main></div>
+productName?.appendChild(h1Tag); // <div class="productName"><main><h1></h1></main></div>
+productName?.appendChild(pTag); //<div class="productName"><main><h1><p></p></h1></main></div>
+productName?.appendChild(div1Tag); //<div class="productName"><main><h1><p><div></div></p></h1></main></div>
 
 if (window.innerWidth <= 960) {
-  itemWrapper?.appendChild(productName);
+  itemWrapper?.appendChild(productName); // 브레이크 포인트보다 뷰포트가 작을때 <div><div class="productName"><main><h1><p><div></div></p></h1></main></div></div>
 } else {
-  productInfo?.appendChild(productName);
+  productInfo?.appendChild(productName); // 브레이크 포인트보다 뷰포트가 클 때 <div><div class="productName"><main><h1><p><div></div></p></h1></main></div></div>
 }
 
 if (window.innerWidth >= 960) {
-  itemWrapper?.appendChild(figureTag);
+  itemWrapper?.appendChild(figureTag); // 브레이크 포인트보다 뷰포트가 작을때 <div ><figure></figure></div>
 }
-itemWrapper?.appendChild(itemList);
+itemWrapper?.appendChild(itemList); // 브레이크 포인트보다 뷰포트가 클 때 <div class="item-list-wrapper "><figure></figure></div>
 
 // 상품 이름, 가격, 이미지 출력
 function render(prds: Products[]) {
-  const div2Tag = document.createElement('div');
+  const div2Tag = document.createElement('div'); // div 태그 생성
   div2Tag.classList.add('detail-item-color', 'pt-0.75', 'flex', 'gap-2.5', 'overflow-x-auto');
   console.log(prds);
   prds?.map((prd) => {
     figureTag.classList.add('min-w-[360px]', 'detail-item-image', 'overflow-x-auto', 'pt-6', 'justify-center', 'items-center');
 
-    const imgTag = document.createElement('img');
+    const imgTag = document.createElement('img'); // img 태그 생성
     if (prd.mainImages && prd.mainImages.length > 0) {
+      // 만일 데이터에 mainImages속성이 존재하고 유효한 이미지 데이터 또한 존재한다면
       imgTag.src = prd.mainImages[0].path;
+      // 생성되는 이미지 태그의 src는 그 배열의 첫번째 인덱스의 path로 넣는다.
     }
     imgTag.alt = prd.name + '이미지';
+    // 대체 이미지는 prd.name + 이미지로 한다
     figureTag.appendChild(imgTag);
-
+    // <figure><img src="prd.mainImages[0].path;" alt ="prd.name + 이미지"></figure>
     const colorList = document.createElement('div');
+    // div 태그 생성 하고 colorList라고 한다
     colorList.classList.add('min-h-[150px]', 'flex', 'overflow-x-auto');
+    // 스타일 추가
 
     // 색상 버튼 생성 루프
     prd.mainImages.map((image, index) => {
       const itemColorButton = document.createElement('button') as HTMLButtonElement;
+      // button 태그 생성
       const itemImage = document.createElement('img') as HTMLImageElement;
+      // img 태그 생성
 
       // 버튼 스타일 설정
       itemColorButton.classList.add(
@@ -112,7 +119,7 @@ function render(prds: Products[]) {
         selectedProduct = image;
 
         //  모든 버튼을 투명 테두리로 초기화
-        const allButtons = div2Tag.querySelectorAll('.itemColorButton');
+        const allButtons = productInfo.querySelectorAll('.itemColorButton');
         allButtons.forEach((btn) => {
           btn.classList.remove('border-black');
           btn.classList.add('border-transparent');
