@@ -276,7 +276,7 @@ function renderCartCost(totalPrice: number) {
       <span class="font-semibold">총 결제 금액</span>
       <span class="font-semibold">${totalPrice.toLocaleString()} 원</span>
     </div>
-    <button class="order-page md:py-4 cursor-pointer rounded-4xl bg-nike-black text-nike-white py-2 font-bold mt-4 hover:bg-nike-gray-dark">
+    <button class="order-page nikeDesktop:py-4 cursor-pointer rounded-4xl bg-nike-black text-nike-white py-2 font-bold mt-4 hover:bg-nike-gray-dark">
       주문결제
     </button>
   `;
@@ -390,7 +390,7 @@ async function renderBestItems() {
   bestItems.forEach((item) => {
     const card = document.createElement('a');
     card.href = `/src/pages/itemdetail?_id=${item.id}`;
-    card.className = 'flex-[0_0_calc((100%-48px)/2)] md:flex-[0_0_calc((100%-48px)/3)]';
+    card.className = 'flex-[0_0_calc((100%-48px)/2)] nikeDesktop:flex-[0_0_calc((100%-48px)/3)]';
 
     card.innerHTML = `
       <div class="aspect-square">
