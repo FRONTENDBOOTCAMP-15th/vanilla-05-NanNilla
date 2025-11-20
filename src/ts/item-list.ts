@@ -1,120 +1,144 @@
 import type { Products } from '../types/products';
 import { getAxios } from '../utils/axios';
-import type { ItemListRes } from '../types/response';
-
-//신제품
-const newPrd = ['신발', '탑 & 티셔츠', '후디 & 크루', '재킷 & 베스트', '팬츠 & 타이츠', '쇼츠', '스포츠 브라', '트랙수트', '점프수트 & 롬퍼스', '스커트 & 드레스', '양말', '용품'];
-
-// 남성
-const PC0101 = ['가방', '모자 & 헤드밴드', '장갑', '슬리브 & 암 밴드', '공', '보호대'];
-const PC0102 = ['라이프스타일', '조던', '러닝', '농구', '미식축구', '축구', '트레이닝 및 짐', '스케이트보딩', '골프', '테니스', '샌들 & 슬리퍼'];
-const PC0103 = ['탑 & 티셔츠', '후디 & 크루', '재킷 & 베스트', '팬츠 & 타이즈', '트랙수트', '쇼츠', '점프수트 & 롬퍼스', '서핑 & 수영복', '양말'];
-
-// 여성
-const PC0201 = ['라이프스타일', '러닝', '농구', '축구', '트레이닝 & 짐', '조던', '스케이트보딩', '골프', '테니스', '샌들 & 슬리퍼'];
-const PC0202 = ['탑 & 티셔츠', '스포츠 브라', '후디 & 크루', '쇼츠', '팬츠 & 타이츠', '재킷 & 베스트', '트랙수트', '점프수트 & 롬퍼스', '스커트 & 드레스', '서핑 & 수영복', '양말'];
-const PC0203 = ['가방', '모자 & 헤드밴드', '장갑', '슬리브 & 암 밴드', '공', '보호대'];
-
-// 키즈
-const PC0301 = ['라이프스타일', '조던', '러닝', '농구', '축구', '스케이트보딩', '샌들 & 슬리퍼', '테니스'];
-const PC0302 = ['탑 & 티셔츠', '쇼츠', '상하의 세트', '점프수트 & 롬퍼스', '팬츠 & 타이츠', '스커트 & 드레스', '양말', '스포츠 브라', '재킷 & 베스트', '후디 & 크루'];
-const PC0303 = ['가방', '모자 & 헤드밴드', '양말', '장갑', '공', '보호대'];
+import type { ItemListRes, CategoryListRes } from '../types/response';
 
 // URL 파라미터
 const params = new URLSearchParams(window.location.search);
-// http://localhost:5173/src/pages/itemlist?extra.isNew=true
 const newQuery = params.get('extra.isNew');
 const firstItemQuery = params.get('extra.category.0'); // 대분류
 const secondItemQuery = params.get('extra.category.1'); // 중분류
 const thirdItemQuery = params.get('extra.category.2'); // 소분류
+const currentQuery = (firstItemQuery || secondItemQuery || thirdItemQuery || newQuery) as string;
+let currentKey = '';
 
-let currentQuery: string = '';
-let currentNewQeury: string | null = null;
+let gender = '';
+let category = '';
+let parent = '';
+let depth: number;
+let sort: number;
+const detailed: string[] = [];
 
-console.log('newQuery 파라미터:', newQuery);
-console.log('mainItemQuery 파라미터:', firstItemQuery);
-console.log('subItemQuery 파라미터:', secondItemQuery);
-console.log('mainItemQuery 파라미터:', thirdItemQuery);
+for (const [key, value] of params) {
+  if (value === currentQuery) {
+    currentKey = key;
+  }
+}
+// 카테고리데이터 가져오기
+async function getCategoryData() {
+  const axios = getAxios();
+  const url = '/codes';
+  try {
+    const { data } = await axios.get<CategoryListRes>(url);
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+const categoryData = (await getCategoryData()) as CategoryListRes;
+if (categoryData?.ok) {
+  console.log('카테고리데이터', categoryData.item.flatten);
+  console.log(categoryData?.item?.flatten[currentQuery]);
+
+  // 성별과 어떤용도이고 더 구체적인
+  if (categoryData.item.flatten[currentQuery]?.depth === 2) {
+    gender = categoryData?.item?.flatten[currentQuery]?.parent === 'PC01' ? '남성' : categoryData.item.flatten[currentQuery].parent === 'PC02' ? '여성' : '키즈';
+    category = categoryData.item.flatten[currentQuery]?.value;
+    depth = categoryData.item.flatten[currentQuery].depth;
+    parent = categoryData.item.flatten[currentQuery].parent as string;
+    Object.values(categoryData.item.flatten).forEach((item) => {
+      //PC010203
+      if (item.parent === currentQuery) {
+        detailed.push(item.value);
+      }
+    });
+    console.log('parent', parent);
+    console.log('gender', gender);
+    console.log('category', category);
+    console.log('depth', depth);
+    console.log(depth);
+  }
+  if (categoryData.item.flatten[currentQuery]?.depth === 3) {
+    gender = categoryData.item.flatten[currentQuery].parent?.substring(2, 4) === '01' ? '남성' : categoryData.item.flatten[currentQuery].parent?.substring(2, 4) === '02' ? '여성' : '키즈';
+    category = categoryData.item.flatten[categoryData.item.flatten[currentQuery].parent as string].value;
+    Object.values(categoryData.item.flatten).forEach((item) => {
+      //PC010203
+      if (item.parent === currentQuery.substring(0, 6)) {
+        detailed.push(item.value);
+      }
+    });
+    depth = categoryData.item.flatten[currentQuery].depth;
+    parent = categoryData.item.flatten[currentQuery].parent as string;
+    sort = categoryData.item.flatten[currentQuery].sort;
+    console.log('parent', parent);
+    console.log('gender', gender);
+    console.log('category', category);
+    console.log('depth', depth);
+    console.log('sort', sort);
+    console.log('세부 카테고리', detailed);
+  }
+}
+
 console.log('현재 URL:', window.location.href);
 
 let url = '/products';
 if (newQuery) {
-  const urlParams = encodeURIComponent(`{"extra.isNew": ${newQuery}}`);
+  const urlParams = encodeURIComponent(`{${currentKey}: ${newQuery}}`);
   url += `?custom=${urlParams}`;
-  currentNewQeury = newQuery;
-} else if (firstItemQuery) {
-  const urlParams = encodeURIComponent(`{"extra.category.0": "${firstItemQuery}"}`);
+} else if (currentQuery) {
+  const urlParams = encodeURIComponent(`{"${currentKey}": "${currentQuery}"}`);
   url += `?custom=${urlParams}`;
-  currentQuery = firstItemQuery;
-} else if (secondItemQuery) {
-  const urlParams = encodeURIComponent(`{"extra.category.1": "${secondItemQuery}"}`);
-  url += `?custom=${urlParams}`;
-  currentQuery = secondItemQuery;
-} else if (thirdItemQuery) {
-  const urlParams = encodeURIComponent(`{"extra.category.2": "${thirdItemQuery}"}`);
-  url += `?custom=${urlParams}`;
-  currentQuery = thirdItemQuery;
-}
-let gender = '';
-let category = '';
-let detailed: string[] = [];
-
-// 성별과 어떤용도이고 더 구체적인
-if (secondItemQuery) {
-  gender = secondItemQuery.substring(2, 4) === '01' ? '남성' : secondItemQuery.substring(2, 4) === '02' ? '여성' : '키즈';
-  if (gender === '남성') {
-    category = secondItemQuery.substring(4) === '01' ? '용품' : secondItemQuery.substring(4) === '02' ? '신발' : '의류';
-  } else {
-    category = secondItemQuery.substring(4) === '01' ? '신발' : secondItemQuery.substring(4) === '02' ? '의류' : '용품';
-  }
 }
 
-if (thirdItemQuery) {
-  gender = thirdItemQuery.substring(2, 4) === '01' ? '남성' : thirdItemQuery.substring(2, 4) === '02' ? '여성' : '키즈';
-  if (gender === '남성') {
-    category = thirdItemQuery.substring(4, 6) === '01' ? '용품' : thirdItemQuery.substring(4, 6) === '02' ? '신발' : '의류';
-  } else {
-    category = thirdItemQuery.substring(4, 6) === '01' ? '신발' : thirdItemQuery.substring(4, 6) === '02' ? '의류' : '용품';
-  }
+// if (thirdItemQuery) {
 
-  const index = Number(thirdItemQuery.substring(6));
+//   gender = thirdItemQuery.substring(2, 4) === '01' ? '남성' : thirdItemQuery.substring(2, 4) === '02' ? '여성' : '키즈';
+//   if (gender === '남성') {
+//     category = thirdItemQuery.substring(4, 6) === '01' ? '용품' : thirdItemQuery.substring(4, 6) === '02' ? '신발' : '의류';
+//   } else {
+//     category = thirdItemQuery.substring(4, 6) === '01' ? '신발' : thirdItemQuery.substring(4, 6) === '02' ? '의류' : '용품';
+//   }
 
-  if (thirdItemQuery.substring(0, 6) === 'PC0101') {
-    detailed = PC0101.filter((_item, idx) => index === idx + 1);
-  }
-  if (thirdItemQuery.substring(0, 6) === 'PC0102') {
-    detailed = PC0102.filter((_item, idx) => index === idx + 1);
-  }
-  if (thirdItemQuery.substring(0, 6) === 'PC0103') {
-    detailed = PC0103.filter((_item, idx) => index === idx + 1);
-  }
-  if (thirdItemQuery.substring(0, 6) === 'PC0201') {
-    detailed = PC0201.filter((_item, idx) => index === idx + 1);
-  }
-  if (thirdItemQuery.substring(0, 6) === 'PC0202') {
-    detailed = PC0202.filter((_item, idx) => index === idx + 1);
-  }
-  if (thirdItemQuery.substring(0, 6) === 'PC0203') {
-    detailed = PC0203.filter((_item, idx) => index === idx + 1);
-  }
-  if (thirdItemQuery.substring(0, 6) === 'PC0301') {
-    detailed = PC0301.filter((_item, idx) => index === idx + 1);
-  }
-  if (thirdItemQuery.substring(0, 6) === 'PC0302') {
-    detailed = PC0302.filter((_item, idx) => index === idx + 1);
-  }
-  if (thirdItemQuery.substring(0, 6) === 'PC0303') {
-    detailed = PC0303.filter((_item, idx) => index === idx + 1);
-  }
-}
+//   const index = Number(thirdItemQuery.substring(6));
+
+//   if (thirdItemQuery.substring(0, 6) === 'PC0101') {
+//     detailed = PC0101.filter((_item, idx) => index === idx + 1);
+//   }
+//   if (thirdItemQuery.substring(0, 6) === 'PC0102') {
+//     detailed = PC0102.filter((_item, idx) => index === idx + 1);
+//   }
+//   if (thirdItemQuery.substring(0, 6) === 'PC0103') {
+//     detailed = PC0103.filter((_item, idx) => index === idx + 1);
+//   }
+//   if (thirdItemQuery.substring(0, 6) === 'PC0201') {
+//     detailed = PC0201.filter((_item, idx) => index === idx + 1);
+//   }
+//   if (thirdItemQuery.substring(0, 6) === 'PC0202') {
+//     detailed = PC0202.filter((_item, idx) => index === idx + 1);
+//   }
+//   if (thirdItemQuery.substring(0, 6) === 'PC0203') {
+//     detailed = PC0203.filter((_item, idx) => index === idx + 1);
+//   }
+//   if (thirdItemQuery.substring(0, 6) === 'PC0301') {
+//     detailed = PC0301.filter((_item, idx) => index === idx + 1);
+//   }
+//   if (thirdItemQuery.substring(0, 6) === 'PC0302') {
+//     detailed = PC0302.filter((_item, idx) => index === idx + 1);
+//   }
+//   if (thirdItemQuery.substring(0, 6) === 'PC0303') {
+//     detailed = PC0303.filter((_item, idx) => index === idx + 1);
+//   }
+// }
 
 // 데이터 가져오기
+
 async function getData(currentUrl: string) {
   const axios = getAxios();
   try {
     console.log('요청 URL:', currentUrl);
     const { data } = await axios.get<ItemListRes>(currentUrl);
-    console.log(data);
+    console.log('데이터', data);
     return data;
   } catch (err) {
     console.error(err);
@@ -168,20 +192,14 @@ function renderItemList(prds: Products[]) {
 }
 
 // 서브 카테고리 필터 랜더 함수
-function renderFiliterList(currentQuery: string, currentNewQeury: string | null) {
-  const result = `
-            ${currentNewQeury ? newPrd.map((item) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]">${item}</button>`).join('') : ``}
-            ${currentQuery.includes('PC0101') ? PC0101.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0101${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-            ${currentQuery.includes('PC0102') ? PC0102.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0102${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-            ${currentQuery.includes('PC0103') ? PC0103.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0103${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-            ${currentQuery.includes('PC0201') ? PC0201.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0201${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-            ${currentQuery.includes('PC0202') ? PC0202.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0202${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-            ${currentQuery.includes('PC0203') ? PC0203.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0203${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-            ${currentQuery.includes('PC0301') ? PC0301.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0301${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-            ${currentQuery.includes('PC0302') ? PC0302.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0302${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-            ${currentQuery.includes('PC0303') ? PC0303.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=PC0303${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('') : ``}
-    `;
-
+function renderFiliterList() {
+  let result = ``;
+  if (depth === 3) {
+    result = detailed.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=${parent}${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('');
+  }
+  if (depth === 2) {
+    result = detailed.map((item, index) => `<button class="text-nike-black text-[1rem] font-medium px-4 pb-3.5 nikeDesktop:ml-8 nikeDesktop:pb-[10.79px]"><a href="/src/pages/itemlist?extra.category.2=${currentQuery}${index + 1 >= 10 ? index + 1 : '0' + (index + 1)}">${item}</a></button>`).join('');
+  }
   const subWrapper = document.querySelector('.sub-categoty-wrapper');
   if (subWrapper) {
     subWrapper.innerHTML = result;
@@ -191,20 +209,15 @@ function renderFiliterList(currentQuery: string, currentNewQeury: string | null)
 function renderTitle(prds: Products[]) {
   let result = '';
 
-  if (firstItemQuery) {
-    result = `
-    <h1 class="nike-title-mobile text-[1.25rem] px-5 pt-[13px] pb-[13px] mb-[15px] nikeDesktop:hidden">${gender}</h1>
-    <h1 class="nike-title-desktop text-[1.25rem] px-12 pt-[17px] pb-[30px] hidden nikeDesktop:block nikeDesktop:whitespace-nowrap">${gender} (${prds.length})</h1>
-    `;
-  } else if (secondItemQuery) {
+  if (depth === 2) {
     result = `
     <h1 class="nike-title-mobile text-[1.25rem] px-5 pt-[13px] pb-[13px] mb-[15px] nikeDesktop:hidden">${gender} ${category}</h1>
     <h1 class="nike-title-desktop text-[1.25rem] px-12 pt-[17px] pb-[30px] hidden nikeDesktop:block nikeDesktop:whitespace-nowrap">${gender} ${category}(${prds.length})</h1>
     `;
-  } else if (thirdItemQuery) {
+  } else if (depth === 3) {
     result = `
-    <h1 class="nike-title-mobile text-[1.25rem] px-5 pt-[13px] pb-[13px] mb-[15px] nikeDesktop:hidden">${gender} ${detailed[0]} ${category === '신발' ? ` ${category}` : ''}</h1>
-    <h1 class="nike-title-desktop text-[1.25rem] px-12 pt-[17px] pb-[30px] hidden nikeDesktop:block nikeDesktop:whitespace-nowrap">${gender} ${detailed[0]}${category === '신발' ? ` ${category}` : ''}(${prds.length})</h1>
+    <h1 class="nike-title-mobile text-[1.25rem] px-5 pt-[13px] pb-[13px] mb-[15px] nikeDesktop:hidden">${gender} ${detailed[sort - 1]} ${category === '신발' ? ` ${category}` : ''}</h1>
+    <h1 class="nike-title-desktop text-[1.25rem] px-12 pt-[17px] pb-[30px] hidden nikeDesktop:block nikeDesktop:whitespace-nowrap">${gender} ${detailed[sort - 1]}${category === '신발' ? ` ${category}` : ''}(${prds.length})</h1>
     `;
   } else if (newQuery) {
     result = `
@@ -229,12 +242,17 @@ function renderTotalItem(prds: Products[]) {
 }
 
 function renderHiddenTitle(prds: Products[]) {
+  const length = prds.length;
+  console.log('길이가 도대체 몇이야!!!!!!!!!!!', length); // 1
+
   const divEl = document.createElement('div');
   const pEl = document.createElement('p');
-  if (secondItemQuery) {
-    pEl.textContent = `${gender} ${category}(${prds.length})`;
-  } else if (thirdItemQuery) {
-    pEl.textContent = category === '신발' ? `${gender} ${detailed[0]} ${category}(${prds.length})` : `${gender} ${detailed[0]}(${prds.length})`;
+  if (depth === 2) {
+    console.log('길이가 도대체 몇이야!!!!!!!!!!!', length);
+    pEl.textContent = `${gender} ${category}(${length})`;
+  } else if (depth === 3) {
+    console.log('길이가 도대체 몇이야!!!!!!!!!!!', length);
+    pEl.textContent = category === '신발' ? `${gender} ${detailed[sort - 1]} ${category}(${length})` : `${gender} ${detailed[sort - 1]}(${length})`;
   }
   divEl.appendChild(pEl);
   divEl.classList.add('hidden', 'nikeDesktop:block');
@@ -250,13 +268,14 @@ function renderHiddenTitle(prds: Products[]) {
 
 // 초기 데이터 랜더
 const data = await getData(url);
+
 if (data?.ok) {
   console.log(data.item);
   renderItemList(data.item);
   renderTitle(data.item);
   renderHiddenTitle(data.item);
   renderTotalItem(data.item);
-  renderFiliterList(currentQuery, currentNewQeury);
+  renderFiliterList();
 }
 
 //필터바 닫힘 기능(성별, 키즈, 키즈연령, 가격대)
@@ -299,6 +318,7 @@ hiddenBtn?.addEventListener('click', () => {
   categoryWrapper?.classList.toggle('nikeDesktop:hidden');
   nikeTitle?.classList.toggle('nikeDesktop:hidden');
   hiddenTitle?.classList.toggle('hidden');
+  console.log('아무문자들', queryArray);
 });
 
 // 정렬 버튼
@@ -325,11 +345,13 @@ async function handleSort(sortUrl: string, label: string) {
   const hiddenTitle = document.querySelector('.hidden-desktop-title');
 
   if (data?.ok) {
+    console.log('무슨데이터들', data.item);
+
     renderItemList(data.item);
     renderTitle(data.item);
     renderHiddenTitle(data.item);
     renderTotalItem(data.item);
-    renderFiliterList(currentQuery, currentNewQeury);
+    renderFiliterList();
   }
 
   [recommendBtn, recentBtn, priceHighBtn, priceLowBtn].forEach((btn) => btn?.classList.add('hidden'));
@@ -372,6 +394,7 @@ mobileFilterExit?.addEventListener('click', function () {
 
 let selectedPriceId = ''; // 선택된 가격대 저장
 
+// 모바일에서 필터 기능
 mobileFilterApply?.addEventListener('click', function () {
   // 선택된 정렬 옵션 가져오기
   const selectedSort = document.querySelector('input[name="mobile-sort"]:checked') as HTMLInputElement;
@@ -487,11 +510,12 @@ const desktopPrice50To100 = document.querySelector('input[id="desktop-price-50-1
 const desktopPrice100To150 = document.querySelector('input[id="desktop-price-100-150"]') as HTMLInputElement;
 const desktopPrice150To200 = document.querySelector('input[id="desktop-price-150-200"]') as HTMLInputElement;
 const desktopPrice200Plus = document.querySelector('input[id="desktop-price-200-plus"]') as HTMLInputElement;
+
 // 공통 가격 필터 함수 생성
+const queryArray: any = [];
 function handleDesktopPriceFilter(minPrice: number, maxPrice: number | null, mobileId: string, clickedButton: HTMLInputElement) {
   clickedButton.checked = true;
 
-  const queryArray = [];
   let sortUrl = '';
   const sortLabel = '';
 
@@ -502,11 +526,11 @@ function handleDesktopPriceFilter(minPrice: number, maxPrice: number | null, mob
 
   selectedPriceId = mobileId;
 
-  if (secondItemQuery) {
-    queryArray.push({ 'extra.category.1': secondItemQuery });
+  if (depth === 2) {
+    queryArray.push({ 'extra.category.1': currentQuery });
   }
-  if (thirdItemQuery) {
-    queryArray.push({ 'extra.category.2': thirdItemQuery });
+  if (depth === 3) {
+    queryArray.push({ 'extra.category.2': currentQuery });
   }
 
   const customObj = { $and: queryArray };
