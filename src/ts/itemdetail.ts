@@ -412,20 +412,24 @@ getData();
 
 // 랜더 함수
 
-function renderPreference(prds) {
-  let result = prds;
-  console.log(result);
-
-  const newConst = [...result.item].sort(() => 0.5 - Math.random()).slice(0, 8);
+function renderPreference(prds: Products[]) {
+  // let another: Products[];
+  console.log(prds);
+  // if (prds.ok === 1) {
+  //   another = prds.item;
+  // }
+  // console.log(another);
+  const newConst = prds?.sort(() => 0.5 - Math.random()).slice(0, 8);
   console.log(newConst);
-  result = newConst
+  const result = newConst
     .map((prd: Products) => {
+      console.log(prd);
       try {
         if (prd.extra.gender === 'men') {
           prd.extra.gender = '남성 신발';
-        } else if (prds.extra.gender === 'women') {
+        } else if (prd.extra.gender === 'women') {
           prd.extra.gender = '여성 신발';
-        } else if (prds.extra.gender === 'kids') {
+        } else if (prd.extra.gender === 'kids') {
           prd.extra.gender = '키즈 신발';
         }
       } catch (err) {
@@ -458,6 +462,8 @@ function renderPreference(prds) {
     preferList.innerHTML = result;
   }
 }
-renderPreference(data);
+if (data) {
+  renderPreference(data?.item);
+}
 
 ///-------------------------추천 제품 기능 구현----------------------------------------////
