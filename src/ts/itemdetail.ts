@@ -77,6 +77,7 @@ function render(prds: Products[]) {
     ///-------------------------메인 이미지----------------------------/////
 
     const imgTag = document.createElement('img'); // img 태그 생성 ( 메인 이미지)
+    imgTag.classList.add('nikeDesktop:w-[400px]', 'nikeDesktop:h-[400px]', 'nikeDesktop:object-cover');
     if (prd.mainImages && prd.mainImages.length > 0) {
       // 만일 데이터에 mainImages속성이 존재하고 유효한 이미지 데이터 또한 존재한다면
       imgTag.src = prd.mainImages[0].path;
@@ -88,7 +89,7 @@ function render(prds: Products[]) {
     // <figure><img src="prd.mainImages[0].path;" alt ="prd.name + 이미지"></figure>
     const colorList = document.createElement('div');
     // div 태그 생성 하고 colorList라고 한다
-    colorList.classList.add('min-h-[150px]', 'flex', 'overflow-x-auto');
+    colorList.classList.add('min-h-[150px]', 'flex', 'overflow-x-auto', 'nikeDesktop:w-[376px]', 'flex-shrink-0', 'nikeDesktop:min-h-[70px]', 'nikeDesktop:pt-[32px]', 'nikeDesktop:pl-6');
     // 스타일 추가
     ///-------------------------메인 이미지----------------------------/////
 
@@ -107,6 +108,8 @@ function render(prds: Products[]) {
         'itemColorButton',
         'w-[125px]', // 버튼 크기 고정
         'h-[125px]',
+        'nikeDesktop:w-[70px]',
+        'nikeDesktop:h-[70px]',
         'flex-shrink-0',
         'cursor-pointer',
         'p-0',
@@ -116,7 +119,7 @@ function render(prds: Products[]) {
       );
 
       // 이미지 스타일 설정
-      itemImage.classList.add('w-full', 'h-full', 'object-cover', 'block');
+      itemImage.classList.add('w-full', 'h-full', 'object-cover', 'block', 'nikeDesktop:w-[70px]', 'nikeDesktop:h-[70px]');
       itemImage.src = image.path;
       itemImage.alt = `${prd.name} - ${image.name}`;
 
@@ -162,7 +165,7 @@ function render(prds: Products[]) {
     productInfo?.appendChild(colorList);
     // productInfo 안에 colorList div 집어넣기
 
-    mainTag.classList.add('detail-main', 'pt-20', 'flow-root');
+    mainTag.classList.add('detail-main', 'flow-root');
     // mainTag 스타일 추가
 
     h1Tag.classList.add('h-8.75', 'ml-6', 'font-medium', 'text-xl', 'font-Noto');
@@ -179,7 +182,7 @@ function render(prds: Products[]) {
       pTag.textContent = '키즈 신발';
     }
 
-    pTag.textContent = prd.extra.gender;
+    // pTag.textContent = prd.extra.gender;
     //<p>prd.extar.gender</p>
 
     div1Tag.classList.add('detail-price-info', 'pt-3', 'ml-6', 'flex');
@@ -187,19 +190,19 @@ function render(prds: Products[]) {
     const span1Tag = document.createElement('span');
     // span 태그 생성
     span1Tag.classList.add('inline-block', 'h-7', 'mr-2', 'font-medium', 'font-Noto');
-    span1Tag.textContent = String(prd.price.toLocaleString());
+    span1Tag.textContent = String(prd.price.toLocaleString()) + '원';
     // 디자인 추가하고 <span>prd.price.toLocaleString()</span>
 
     const sTag = document.createElement('s');
     // s 태그 생성
     sTag.classList.add('inline-block', 'h-7', 'mr-2', 'font-medium', 'font-Noto', 'text-nike-gray-medium');
-    sTag.textContent = String(prd.price.toLocaleString());
+    sTag.textContent = `${Math.round(prd.price / 0.9).toLocaleString()}원`;
     // <s>prd.price.toLocaleString()</s>
 
     const span2Tag = document.createElement('span');
     // span 태그 생성
     span2Tag.classList.add('inline-block', 'h-7', 'font-medium', 'font-Noto', 'text-nike-green');
-    span2Tag.textContent = String(prd.price.toLocaleString());
+    span2Tag.textContent = '10% 할인';
     // <span>prd.price.toLocaleString()</span>
 
     div1Tag.appendChild(span1Tag);
@@ -304,6 +307,20 @@ getSizeProduct();
 
 ///-------------------------제품 사이즈 출력 ----------------------------/////
 
+const detailSummaries = document.querySelectorAll('.detail-info-summary');
+
+detailSummaries.forEach((summaryElement) => {
+  summaryElement.addEventListener('click', () => {
+    if (summaryElement.classList.contains('border-b-2')) {
+      //제품 상세 클릭 시 border-b 없어지도록 하기
+      summaryElement.classList.remove('border-b-2', 'border-nike-gray-lighter');
+    } else {
+      //제품 상세 재 클릭 시 border-b 나타나도록 하기
+      summaryElement.classList.add('border-b-2', 'border-nike-gray-lighter');
+    }
+  });
+});
+
 ///-------------------------제품 사이즈 선택 - 장바구니 연동 ----------------------------/////
 
 // 사이즈 선택
@@ -351,6 +368,7 @@ addCartBtn?.addEventListener('click', async () => {
       return;
     }
   }
+
   // 비회원 로컬스토리지 장바구니
   const product: CartItem = {
     id: productElement._id,
