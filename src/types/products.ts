@@ -24,6 +24,7 @@ export interface Products {
   extra: {
     isNew: boolean;
     isBest: boolean;
+    sale: boolean;
     category: string[];
     sort: 1;
     gender: string;
