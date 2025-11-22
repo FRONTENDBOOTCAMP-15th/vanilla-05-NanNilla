@@ -1,7 +1,5 @@
 /// <reference types="kakao.maps.d.ts" />
-
-// 매장 데이터 타입 정의
-import type { Store } from '../types/products';
+import storesData from '../../nike-store.json';
 
 // HTML 요소
 const mapElement = document.querySelector('.map') as HTMLElement; // 지도 넣는 곳
@@ -16,22 +14,15 @@ const options = {
   level: 3,
   scrollwheel: false,
 };
+
 const map = new kakao.maps.Map(mapElement, options);
 
 // 현재 뷰 상태
 let isMapView = false;
 
-// 매장 데이터
-let storesData: Store[] = [];
-
 // nike-store.json 데이터 불러오기
 async function loadStores() {
   try {
-    const response = await fetch('/nike-store.json');
-    if (!response.ok) throw new Error('데이터 가져오기 실패');
-
-    storesData = (await response.json()) as Store[];
-
     // 매장 개수 표시
     storeCount.textContent = `매장: ${storesData.length}개`;
 

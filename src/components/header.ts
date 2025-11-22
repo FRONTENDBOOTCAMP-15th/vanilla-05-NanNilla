@@ -18,9 +18,9 @@ class HeaderComponent extends HTMLElement {
         <p class="text-xs font-medium">|</p>
         <button class="text-xs font-medium">고객센터</button>
         <p class="text-xs font-medium">|</p>
-        <button id="signup-btn" class="text-xs font-medium cursor-pointer">가입하기</button>
+        <button id="signup-btn" class="text-xs font-medium cursor-pointer"><a href="/src/pages/signin.html">가입하기</a></button>
         <p id="divide" class="text-xs font-medium">|</p>
-        <button id="login-btn" class="text-xs font-medium cursor-pointer">로그인</button>
+        <button id="login-btn" class="text-xs font-medium cursor-pointer"><a href="/src/pages/signin.html">로그인</a></button>
         <button id="logout-btn" class="text-xs font-medium cursor-pointer">로그아웃</button>
         </div>
       </header>
@@ -188,8 +188,8 @@ class HeaderComponent extends HTMLElement {
         <div class="flex flex-col gap-9.5">
           <input type="checkbox" id="menu" class="peer hidden"><label for="menu-toggle" class="w-9 h-9 absolute right-2 top-2  p-1 z-30 box-border bg-[url(/assets/icon36px/icon-close.svg)] cursor-pointer"></label>
           <div class="flex gap-5 pl-8.5 pt-19">
-            <button id="signup-btn" class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base"><a href="src/pages/signin.html">가입하기</a></button>
-            <button id="login-btn" class="w-19.5 h-10 rounded-full bg-nike-white text-nike-black border border-nike-gray-light text-base"><a href="src/pages/signin.html">로그인</a></button>
+            <button id="signup-btn" class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base"><a href="/src/pages/signin.html">가입하기</a></button>
+            <button id="login-btn" class="w-19.5 h-10 rounded-full bg-nike-white text-nike-black border border-nike-gray-light text-base"><a href="/src/pages/signin.html">로그인</a></button>
             <button id="logout-btn" class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base hidden">로그아웃</button>
           </div>
           <div class="flex flex-col pl-8.5 gap-6">
