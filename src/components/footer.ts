@@ -15,7 +15,7 @@ class FooterComponent extends HTMLElement {
                 <hr class="border border-nike-gray-lightest">
                 <button class="footer-toggle flex justify-between items-center w-full cursor-pointer">
                   <h4 class="footer-title text-nike-black h-16 py-5">안내</h4>
-                  <img src="../../assets/icon24px/icon-up.svg" class="pb-1 toggle-icon nikeDesktop:hidden"/>
+                  <img src="../../assets/icon24px/icon-down.svg" class="pb-1 toggle-icon nikeDesktop:hidden"/>
                 </button>
                 <ul class="text-nike-gray-dark pb-3">
                   <li class="py-2"><a href="#">멤버가입</a></li>
@@ -27,7 +27,7 @@ class FooterComponent extends HTMLElement {
                 <hr class="border border-nike-gray-lightest">
                 <button class="footer-toggle flex justify-between items-center w-full cursor-pointer">
                   <h4 class="footer-title text-nike-black h-16 py-5">고객센터</h4>
-                  <img src="../../assets/icon24px/icon-up.svg" class="pb-1 toggle-icon nikeDesktop:hidden"/>
+                  <img src="../../assets/icon24px/icon-down.svg" class="pb-1 toggle-icon nikeDesktop:hidden"/>
                 </button>
                 <ul class="text-nike-gray-dark pb-3">
                   <li class="py-2"><a href="#">주문배송조회</a></li>
@@ -41,7 +41,7 @@ class FooterComponent extends HTMLElement {
                 <hr class="border border-nike-gray-lightest">
                 <button class="footer-toggle flex justify-between items-center w-full cursor-pointer">
                   <h4 class="footer-title text-nike-black h-16 py-5">회사소개</h4>
-                  <img src="../../assets/icon24px/icon-up.svg" class="pb-1 toggle-icon nikeDesktop:hidden"/>
+                  <img src="../../assets/icon24px/icon-down.svg" class="pb-1 toggle-icon nikeDesktop:hidden"/>
                 </button>
                 <ul class="text-nike-gray-dark">
                   <li class="py-2"><a href="#">About Nike</a></li>
