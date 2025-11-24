@@ -21,7 +21,7 @@ class HeaderComponent extends HTMLElement {
         <button id="signup-btn" class="text-xs font-medium cursor-pointer"><a href="/src/pages/signin.html">가입하기</a></button>
         <p id="divide" class="text-xs font-medium">|</p>
         <button id="login-btn" class="text-xs font-medium cursor-pointer"><a href="/src/pages/signin.html">로그인</a></button>
-        <button id="logout-btn" class="text-xs font-medium cursor-pointer">로그아웃</button>
+        <button id="logout-btn" class="text-xs font-medium cursor-pointer hidden">로그아웃</button>
         </div>
       </header>
       <header class="flex w-full h-15 px-6 justify-between items-center bg-nike-white">
@@ -64,8 +64,8 @@ class HeaderComponent extends HTMLElement {
             <a href="/src/pages/itemlist?extra.category.2=PC010207" class="font-medium text-nike-gray-dark hover:underline text-xs">트레이닝 & 짐</a>
             <a href="/src/pages/itemlist?extra.category.2=PC010208" class="font-medium text-nike-gray-dark hover:underline text-xs">스케이트보딩</a>
             <a href="/src/pages/itemlist?extra.category.2=PC010209" class="font-medium text-nike-gray-dark hover:underline text-xs">골프</a>
-            <a href="/src/pages/itemlist?extra.category.2=PC0102010" class="font-medium text-nike-gray-dark hover:underline text-xs">테니스</a>
-            <a href="/src/pages/itemlist?extra.category.2=PC0102011" class="font-medium text-nike-gray-dark hover:underline text-xs">샌들 & 슬리퍼</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010210" class="font-medium text-nike-gray-dark hover:underline text-xs">테니스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010211" class="font-medium text-nike-gray-dark hover:underline text-xs">샌들 & 슬리퍼</a>
           </div>
 
           <!-- 의류 -->
@@ -188,9 +188,9 @@ class HeaderComponent extends HTMLElement {
         <div class="flex flex-col gap-9.5">
           <input type="checkbox" id="menu" class="peer hidden"><label for="menu-toggle" class="w-9 h-9 absolute right-2 top-2  p-1 z-30 box-border bg-[url(/assets/icon36px/icon-close.svg)] cursor-pointer"></label>
           <div class="flex gap-5 pl-8.5 pt-19">
-            <button id="signup-btn" class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base"><a href="/src/pages/signin.html">가입하기</a></button>
-            <button id="login-btn" class="w-19.5 h-10 rounded-full bg-nike-white text-nike-black border border-nike-gray-light text-base"><a href="/src/pages/signin.html">로그인</a></button>
-            <button id="logout-btn" class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base hidden">로그아웃</button>
+            <button id="signup-mobile" class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base"><a href="/src/pages/signin.html">가입하기</a></button>
+            <button id="login-mobile" class="w-19.5 h-10 rounded-full bg-nike-white text-nike-black border border-nike-gray-light text-base"><a href="/src/pages/signin.html">로그인</a></button>
+            <button id="logout-mobile" class="w-22.5 h-10 rounded-full bg-nike-black text-nike-white text-base hidden">로그아웃</button>
           </div>
           <div class="flex flex-col pl-8.5 gap-6">
             <button class="flex items-center justify-between text-2xl leading-7 font-medium" data-new-only="true"><span><a href="/src/pages/itemlist?extra.isNew=true">New & Featured</a></span><img src="/assets/icon36px/icon-next.svg"></button>
@@ -226,6 +226,9 @@ class HeaderComponent extends HTMLElement {
     const loginBtn = this.querySelector('#login-btn') as HTMLButtonElement;
     const logoutBtn = this.querySelector('#logout-btn') as HTMLButtonElement;
     const divideLine = this.querySelector('#divide') as HTMLElement;
+    const signupMobile = this.querySelector('#signup-mobile') as HTMLButtonElement;
+    const loginMobile = this.querySelector('#login-mobile') as HTMLButtonElement;
+    const logoutMobile = this.querySelector('#logout-mobile') as HTMLButtonElement;
 
     if (!signupBtn || !loginBtn || !logoutBtn) return;
 
@@ -235,20 +238,45 @@ class HeaderComponent extends HTMLElement {
       loginBtn.classList.add('hidden');
       logoutBtn.classList.remove('hidden');
       divideLine.classList.add('hidden');
-    } else {
+      } else {
+
       // 비로그인 상태: 가입/로그인 버튼만 보임
       signupBtn.classList.remove('hidden');
       loginBtn.classList.remove('hidden');
       logoutBtn.classList.add('hidden');
       divideLine.classList.remove('hidden');
-    }
+      }
 
-    // 로그아웃 클릭 시
-    logoutBtn.addEventListener('click', () => {
+      // 로그아웃 클릭 시
+      logoutBtn.addEventListener('click', () => {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       window.location.href = '/index.html';
     });
+  
+    if (!signupMobile || !loginMobile || !logoutMobile) return;
+
+    if (isLoggedIn){
+      if (isLoggedIn) {
+      // 로그인 상태: 로그아웃 버튼만 보임
+      signupMobile.classList.add('hidden');
+      loginMobile.classList.add('hidden');
+      logoutMobile.classList.remove('hidden');
+      } else {
+      // 비로그인 상태: 가입/로그인 버튼만 보임
+      signupMobile.classList.remove('hidden');
+      loginMobile.classList.remove('hidden');
+      logoutMobile.classList.add('hidden');
+      }
+
+      // 로그아웃 클릭 시
+      logoutMobile.addEventListener('click', () => {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      window.location.href = '/index.html';
+      });
+
+    }
   }
   // 서브 메뉴 UI
   private initSubMenu() {
