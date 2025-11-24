@@ -32,6 +32,7 @@ async function getData() {
     console.log(err);
   }
 }
+///-------------------------반응형을 위한 div 묶기----------------------------/////
 
 const itemWrapper = document.querySelector('.item-entire-wrapper'); // item-entire-wrapper 찾기
 const itemList = document.querySelector('.item-list-wrapper') as HTMLElement; // item-list-wrapper 찾기
@@ -478,30 +479,33 @@ const nextBtn = document.querySelector('.next-button') as HTMLButtonElement;
 const slideItem = document.querySelector('.prefer-items') as HTMLElement;
 
 const slideWidth = slideItem.offsetWidth + parseInt(window.getComputedStyle(slideItem).marginRight);
-
+//개별 슬라이드(slideItem)의 너비와 오른쪽 마진을 합한 값
 nextBtn?.addEventListener('click', () => {
   slidesContainer.scrollLeft += slideWidth;
-
+  //slidesContainer.scrollLeft 속성을 사용하여 컨테이너의 현재 수평 스크롤 위치를 조작
+  // 오른쪽 이동
   updateButtonStates();
 });
 
 prevBtn?.addEventListener('click', () => {
   slidesContainer.scrollLeft -= slideWidth;
-
+  // 왼쪽 이동
   updateButtonStates();
 });
 
 function updateButtonStates() {
   setTimeout(() => {
     const maxScrollLeft = slidesContainer.scrollWidth - slidesContainer.clientWidth;
+    //최대 스크롤 가능 위치 계산
 
     const currentScrollLeft = slidesContainer.scrollLeft;
+    //현재 스크롤 위치
 
     prevBtn.disabled = currentScrollLeft <= 0;
-
+    //이전 버튼 상태: 가장 왼쪽(스크롤 위치 0)에 도달하면 비활성화
     nextBtn.disabled = currentScrollLeft >= maxScrollLeft - 1;
   }, 100);
-}
+} //다음 버튼 상태: 가장 오른쪽(maxScrollLeft)에 도달하면 비활성화
 
 updateButtonStates();
 
