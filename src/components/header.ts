@@ -64,8 +64,8 @@ class HeaderComponent extends HTMLElement {
             <a href="/src/pages/itemlist?extra.category.2=PC010207" class="font-medium text-nike-gray-dark hover:underline text-xs">트레이닝 & 짐</a>
             <a href="/src/pages/itemlist?extra.category.2=PC010208" class="font-medium text-nike-gray-dark hover:underline text-xs">스케이트보딩</a>
             <a href="/src/pages/itemlist?extra.category.2=PC010209" class="font-medium text-nike-gray-dark hover:underline text-xs">골프</a>
-            <a href="/src/pages/itemlist?extra.category.2=PC0102010" class="font-medium text-nike-gray-dark hover:underline text-xs">테니스</a>
-            <a href="/src/pages/itemlist?extra.category.2=PC0102011" class="font-medium text-nike-gray-dark hover:underline text-xs">샌들 & 슬리퍼</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010210" class="font-medium text-nike-gray-dark hover:underline text-xs">테니스</a>
+            <a href="/src/pages/itemlist?extra.category.2=PC010211" class="font-medium text-nike-gray-dark hover:underline text-xs">샌들 & 슬리퍼</a>
           </div>
 
           <!-- 의류 -->
