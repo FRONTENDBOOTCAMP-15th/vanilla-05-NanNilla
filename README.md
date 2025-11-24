@@ -8,6 +8,8 @@
 
 **바닐라 프로젝트 기간 : 2025.11.10~2025.11.24 ( 수업일수 10일, 휴강일 1일, 주말 4일 포함 , 총 15일)**
 
+### 배포주소 : [난닐라-나이키](https://nike-vanilla.netlify.app/)
+
 ## 👥 팀원 소개
 
 |                               [서주희](https://github.com/tjwngml)                               |                            [유현욱](https://github.com/holyhw)                             |                           [이유진B](https://github.com/nomineaquae)                            |                              [이유진A](https://github.com/UJin1122)                              |
